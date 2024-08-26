@@ -1,28 +1,38 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
-export enum CounterActionTypes {
-  increase = '[COUNTER] increase',
-  decrease = '[COUNTER] decrease',
-  clear = '[COUNTER] clear',
-  updatedAt = '[COUNTER] updated at',
-}
+export const increment = createAction('[Counter] Increment');
 
-export class CounterIncreaseAction implements Action {
-  readonly type = CounterActionTypes.increase;
-}
+export const decrement = createAction('[Counter] Decrement');
 
-export class CounterDecreaseAction implements Action {
-  readonly type = CounterActionTypes.decrease;
-}
+export const clear = createAction('[Counter] Clear');
 
-export class CounterClearAction implements Action {
-  readonly type = CounterActionTypes.clear;
-}
+export const updatedAt = createAction('[Counter] Updated at', props<{ updatedAt: number }>());
 
-export class CounterUpdatedAtAction implements Action {
-  readonly type = CounterActionTypes.updatedAt;
+export type CounterAction = typeof increment | typeof decrement | typeof clear | typeof updatedAt;
 
-  constructor(public payload: { updatedAt: number }) {}
-}
+// export enum CounterActionTypes {
+//   increase = '[COUNTER] increase',
+//   decrease = '[COUNTER] decrease',
+//   clear = '[COUNTER] clear',
+//   updatedAt = '[COUNTER] updated at',
+// }
 
-export type CounterAction = CounterIncreaseAction | CounterDecreaseAction | CounterClearAction | CounterUpdatedAtAction;
+// export class CounterIncreaseAction implements Action {
+//   readonly type = CounterActionTypes.increase;
+// }
+
+// export class CounterDecreaseAction implements Action {
+//   readonly type = CounterActionTypes.decrease;
+// }
+
+// export class CounterClearAction implements Action {
+//   readonly type = CounterActionTypes.clear;
+// }
+
+// export class CounterUpdatedAtAction implements Action {
+//   readonly type = CounterActionTypes.updatedAt;
+
+//   constructor(public payload: { updatedAt: number }) {}
+// }
+
+// export type CounterAction = CounterIncreaseAction | CounterDecreaseAction | CounterClearAction | CounterUpdatedAtAction;

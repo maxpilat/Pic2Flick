@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 import { selectCount, selectUpdatedAt } from './store/selectors/counter.selectors';
 import { CommonModule } from '@angular/common';
-import { CounterIncreaseAction, CounterDecreaseAction, CounterClearAction } from './store/actions/counter.actions';
+import { increment, decrement, clear } from './store/actions/counter.actions';
 import { CounterState } from './store/reducers/counter.reducer';
 
 @Component({
@@ -26,14 +26,14 @@ export class AppComponent {
   }
 
   increase() {
-    this.store.dispatch(new CounterIncreaseAction());
+    this.store.dispatch(increment());
   }
 
   decrease() {
-    this.store.dispatch(new CounterDecreaseAction());
+    this.store.dispatch(decrement());
   }
 
   clear() {
-    this.store.dispatch(new CounterClearAction());
+    this.store.dispatch(clear());
   }
 }
