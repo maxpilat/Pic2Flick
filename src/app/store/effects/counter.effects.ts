@@ -1,20 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { increment, decrement, clear, updatedAt } from '../actions/counter.actions';
 import { map } from 'rxjs';
 import { Action } from '@ngrx/store';
-
-// @Injectable()
-// export class CounterEffects {
-//   constructor(private actions$: Actions) {}
-
-//   updatedAt$ = createEffect(() => {
-//     return this.actions$.pipe(
-//       ofType(increment, decrement, clear),
-//       map(() => updatedAt({ updatedAt: Date.now() }))
-//     );
-//   });
-// }
 
 export const updatedAtEffect = createEffect(
   () => {
@@ -27,3 +15,15 @@ export const updatedAtEffect = createEffect(
   },
   { functional: true }
 );
+
+// @Injectable()
+// export class CounterEffects {
+//   constructor(private actions$: Actions) {}
+
+//   updatedAt$ = createEffect(() => {
+//     return this.actions$.pipe(
+//       ofType(increment, decrement, clear),
+//       map(() => updatedAt({ updatedAt: Date.now() }))
+//     );
+//   });
+// }
