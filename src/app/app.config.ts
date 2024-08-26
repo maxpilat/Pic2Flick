@@ -6,7 +6,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore } from '@ngrx/router-store';
 import { provideStore } from '@ngrx/store';
 import { reducers } from './store';
-import { CounterEffects } from './store/effects/counter.effects';
+import * as counterEffects from './store/effects/counter.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(reducers),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects(CounterEffects),
+    provideEffects(counterEffects),
     provideRouterStore(),
   ],
 };
