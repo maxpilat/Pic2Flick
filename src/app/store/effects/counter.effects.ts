@@ -2,28 +2,31 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { increment, decrement, clear, updatedAt } from '../actions/counter.actions';
 import { map } from 'rxjs';
-import { Action } from '@ngrx/store';
+import { LoggingService } from '../../services/logging.service';
 
 export const updatedAtEffect = createEffect(
-  () => {
-    const actions$ = inject(Actions);
-
-    return actions$.pipe(
+  (actions$ = inject(Actions), loggingService = inject(LoggingService)) =>
+    actions$.pipe(
       ofType(increment, decrement, clear),
-      map((): Action => updatedAt({ updatedAt: Date.now() }))
-    );
-  },
+      map((action) => {
+        loggingService.logAction(action.type);
+        return updatedAt({ updatedAt: Date.now() });
+      })
+    ),
   { functional: true }
 );
 
 // @Injectable()
 // export class CounterEffects {
-//   constructor(private actions$: Actions) {}
+//   constructor(private actions$: Actions, private loggingService: LoggingService) {}
 
 //   updatedAt$ = createEffect(() => {
 //     return this.actions$.pipe(
 //       ofType(increment, decrement, clear),
-//       map(() => updatedAt({ updatedAt: Date.now() }))
+//       map((action) => {
+//         this.loggingService.logAction(action.type);
+//         return updatedAt({ updatedAt: Date.now() });
+//       })
 //     );
 //   });
 // }
