@@ -1,11 +1,3 @@
 <div class="wrapper">
-  <div>
-    <span>Counter is: {{ count$ | async }}</span>
-    <span>Updated at: {{ updatedAt$ | async | date : "yyyy-MM-dd-hh:mm:ss" }}</span>
-  </div>
-  <div class="controls">
-    <button (click)="decrease()" [disabled]="disableDecrease$ | async">Decrease</button>
-    <button (click)="increase()">Increase</button>
-    <button (click)="clear()">Clear</button>
-  </div>
+  <app-counter></app-counter>
 </div>
