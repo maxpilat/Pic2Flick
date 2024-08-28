@@ -5,7 +5,7 @@ import { Pending } from '../models/pending.model';
 export const selectCatsState = createFeatureSelector<CatsState>(catsNode);
 
 export const selectCats = createSelector(selectCatsState, (state: CatsState) => state.cats);
-export const selectLoadCatsPending = createSelector(
+export const selectCatsPending = createSelector(
   selectCatsState,
   (state: CatsState) => state.pending.getCats === Pending.Active
 );

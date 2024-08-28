@@ -1,1 +1,4 @@
-<cat-card *ngFor="let cat of cats$ | async" [cat]="cat"></cat-card>
+<div class="cat-list">
+  <cat-card *ngFor="let cat of cats$ | async" [cat]="cat"></cat-card>
+  <div #loadMore></div>
+</div>

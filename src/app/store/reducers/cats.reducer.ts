@@ -30,7 +30,7 @@ export const catsReducer = createReducer(
   })),
   on(loadCatsSuccess, (state, { cats }) => ({
     ...state,
-    cats,
+    cats: [...state.cats, ...cats],
     pending: { ...state.pending, getCats: Pending.None },
   })),
   on(loadCatsError, (state) => ({
