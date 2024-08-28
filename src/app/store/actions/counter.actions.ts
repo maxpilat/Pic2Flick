@@ -1,38 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 
-export const increment = createAction('[Counter] Increment');
+export enum CounterActionsTypes {
+  increment = '[Counter] Increment',
+  decrement = '[Counter] Decrement',
+  clear = '[Counter] Clear',
+  updatedAt = '[Counter] Updated At',
+}
 
-export const decrement = createAction('[Counter] Decrement');
+export const increment = createAction(CounterActionsTypes.increment);
 
-export const clear = createAction('[Counter] Clear');
+export const decrement = createAction(CounterActionsTypes.decrement);
 
-export const updatedAt = createAction('[Counter] Updated at', props<{ updatedAt: number }>());
+export const clear = createAction(CounterActionsTypes.clear);
 
-export type CounterAction = typeof increment | typeof decrement | typeof clear | typeof updatedAt;
-
-// export enum CounterActionTypes {
-//   increase = '[COUNTER] increase',
-//   decrease = '[COUNTER] decrease',
-//   clear = '[COUNTER] clear',
-//   updatedAt = '[COUNTER] updated at',
-// }
-
-// export class CounterIncreaseAction implements Action {
-//   readonly type = CounterActionTypes.increase;
-// }
-
-// export class CounterDecreaseAction implements Action {
-//   readonly type = CounterActionTypes.decrease;
-// }
-
-// export class CounterClearAction implements Action {
-//   readonly type = CounterActionTypes.clear;
-// }
-
-// export class CounterUpdatedAtAction implements Action {
-//   readonly type = CounterActionTypes.updatedAt;
-
-//   constructor(public payload: { updatedAt: number }) {}
-// }
-
-// export type CounterAction = CounterIncreaseAction | CounterDecreaseAction | CounterClearAction | CounterUpdatedAtAction;
+export const updatedAt = createAction(CounterActionsTypes.updatedAt, props<{ updatedAt: number }>());

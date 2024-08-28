@@ -15,18 +15,3 @@ export const updatedAtEffect = createEffect(
     ),
   { functional: true }
 );
-
-// @Injectable()
-// export class CounterEffects {
-//   constructor(private actions$: Actions, private loggingService: LoggingService) {}
-
-//   updatedAt$ = createEffect(() => {
-//     return this.actions$.pipe(
-//       ofType(increment, decrement, clear),
-//       map((action) => {
-//         this.loggingService.logAction(action.type);
-//         return updatedAt({ updatedAt: Date.now() });
-//       })
-//     );
-//   });
-// }

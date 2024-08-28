@@ -6,6 +6,8 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { reducers } from './store';
 import * as counterEffects from './store/effects/counter.effects';
+import * as catsEffects from './store/effects/cats.effects';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(reducers),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects(counterEffects),
+    provideEffects(counterEffects, catsEffects),
+    provideHttpClient(),
   ],
 };

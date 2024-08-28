@@ -1,12 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { increment, decrement, clear, updatedAt } from '../actions/counter.actions';
+import type { Counter } from '../models/counter.model';
 
 export const counterNode = 'counter';
 
-export interface CounterState {
-  count: number;
-  updatedAt: number;
-}
+export type CounterState = Counter;
 
 const initialState: CounterState = {
   count: 0,
@@ -20,18 +18,3 @@ export const counterReducer = createReducer(
   on(clear, (state) => ({ ...state, count: 0 })),
   on(updatedAt, (state, { updatedAt }) => ({ ...state, updatedAt }))
 );
-
-// export const counterReducer = (state = initialState, action: CounterAction) => {
-//   switch (action.type) {
-//     case CounterActionTypes.increase:
-//       return { ...state, count: state.count + 1 };
-//     case CounterActionTypes.decrease:
-//       return { ...state, count: state.count - 1 };
-//     case CounterActionTypes.clear:
-//       return { ...state, count: 0 };
-//     case CounterActionTypes.updatedAt:
-//       return { ...state, updatedAt: action.payload.updatedAt };
-//     default:
-//       return state;
-//   }
-// };

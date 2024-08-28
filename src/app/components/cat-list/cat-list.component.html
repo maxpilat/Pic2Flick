@@ -1,1 +1,1 @@
-<p>cat-list works!</p>
+<cat-card *ngFor="let cat of cats$ | async" [cat]="cat"></cat-card>

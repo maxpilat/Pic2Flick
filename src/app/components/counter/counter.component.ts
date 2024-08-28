@@ -7,7 +7,7 @@ import { increment, decrement, clear } from '../../store/actions/counter.actions
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-counter',
+  selector: 'counter',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './counter.component.html',
