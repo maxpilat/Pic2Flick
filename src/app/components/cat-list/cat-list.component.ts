@@ -1,11 +1,22 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Cat } from '../../store/models/cat.model';
 import { CommonModule } from '@angular/common';
 import { CatCardComponent } from '../cat-card/cat-card.component';
 import { CatsState } from '../../store/reducers/cats.reducer';
 import { Store } from '@ngrx/store';
 import { loadCats } from '../../store/actions/cats.actions';
-import { filter, interval, Observable, switchMap, take, takeWhile } from 'rxjs';
+import {
+  debounceTime,
+  filter,
+  interval,
+  Observable,
+  Subject,
+  Subscription,
+  switchMap,
+  take,
+  takeWhile,
+  tap,
+} from 'rxjs';
 import { selectCats, selectCatsPending } from '../../store/selectors/cats.selectors';
 import { NgxMasonryModule } from 'ngx-masonry';
 
@@ -16,14 +27,16 @@ import { NgxMasonryModule } from 'ngx-masonry';
   templateUrl: './cat-list.component.html',
   styleUrl: './cat-list.component.scss',
 })
-export class CatListComponent implements OnInit {
+export class CatListComponent implements OnInit, OnDestroy {
   cats$: Observable<Cat[]>;
-
   @ViewChild('loadMore') private loadMore: ElementRef;
-  isLoading = false;
-  imagesLoadedCount = 0;
-  totalCats = 0;
-  private lastTouchY: number = 0;
+  private isLoading = false;
+  private imagesLoadedCount = 0;
+  private imagesRequestedCount = 0;
+  private lastTouchY = 0;
+  private imagesLoadedCount$ = new Subject<number>();
+  private imagesLoadedCountSubscription: Subscription;
+  isLoader = false;
 
   constructor(private store: Store<CatsState>) {
     this.cats$ = this.store.select(selectCats);
@@ -35,15 +48,26 @@ export class CatListComponent implements OnInit {
   ngOnInit() {
     this.initialLoading();
     this.cats$.subscribe((cats) => {
-      this.totalCats = cats.length;
+      this.imagesRequestedCount = cats.length;
     });
+
+    this.imagesLoadedCount$
+      .pipe(
+        tap(() => (this.isLoader = false)),
+        debounceTime(1000)
+      )
+      .subscribe(() => (this.isLoader = true));
+  }
+
+  ngOnDestroy() {
+    this.imagesLoadedCountSubscription.unsubscribe();
   }
 
   private initialLoading() {
     interval(500)
       .pipe(
         takeWhile(() => this.isLoadMoreVisible()),
-        filter(() => !this.isLoading && this.imagesLoadedCount === this.totalCats),
+        filter(() => !this.isLoading && this.imagesLoadedCount === this.imagesRequestedCount),
         switchMap(() => {
           this.store.dispatch(loadCats());
           return this.store.select(selectCatsPending).pipe(take(1));
@@ -53,7 +77,7 @@ export class CatListComponent implements OnInit {
   }
 
   onImageLoaded() {
-    this.imagesLoadedCount++;
+    this.imagesLoadedCount$.next(++this.imagesLoadedCount);
   }
 
   @HostListener('wheel', ['$event'])
@@ -73,8 +97,7 @@ export class CatListComponent implements OnInit {
   }
 
   private handleScroll() {
-    console.log(this.isLoadMoreVisible());
-    if (this.isLoadMoreVisible() && !this.isLoading && this.imagesLoadedCount === this.totalCats) {
+    if (this.isLoadMoreVisible() && !this.isLoading && this.imagesLoadedCount === this.imagesRequestedCount) {
       this.store.dispatch(loadCats());
       this.store.dispatch(loadCats());
     }

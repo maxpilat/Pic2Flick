@@ -2,5 +2,5 @@
   <cat-card ngxMasonryItem *ngFor="let cat of cats$ | async" [cat]="cat" (imageLoaded)="onImageLoaded()"></cat-card>
 </ngx-masonry>
 <div class="loader" #loadMore>
-  <span *ngIf="isLoading || imagesLoadedCount !== totalCats"></span>
+  <span *ngIf="isLoader"></span>
 </div>
