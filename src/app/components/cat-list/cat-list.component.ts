@@ -19,10 +19,11 @@ import { NgxMasonryModule } from 'ngx-masonry';
 export class CatListComponent implements OnInit {
   cats$: Observable<Cat[]>;
 
-  @ViewChild('loadMore') private loadMore!: ElementRef;
-  private isLoading = false;
-  private imagesLoadedCount = 0;
-  private totalCats = 0;
+  @ViewChild('loadMore') private loadMore: ElementRef;
+  isLoading = false;
+  imagesLoadedCount = 0;
+  totalCats = 0;
+  private lastTouchY: number = 0;
 
   constructor(private store: Store<CatsState>) {
     this.cats$ = this.store.select(selectCats);
@@ -55,9 +56,26 @@ export class CatListComponent implements OnInit {
     this.imagesLoadedCount++;
   }
 
-  @HostListener('window:scroll')
-  onScroll() {
+  @HostListener('wheel', ['$event'])
+  onWheel(event: WheelEvent) {
+    if (event.deltaY > 0) {
+      this.handleScroll();
+    }
+  }
+
+  @HostListener('touchmove', ['$event'])
+  onTouchMove(event: TouchEvent) {
+    const touch = event.touches[0];
+    if (touch.clientY > this.lastTouchY) {
+      this.handleScroll();
+    }
+    this.lastTouchY = touch.clientY;
+  }
+
+  private handleScroll() {
+    console.log(this.isLoadMoreVisible());
     if (this.isLoadMoreVisible() && !this.isLoading && this.imagesLoadedCount === this.totalCats) {
+      this.store.dispatch(loadCats());
       this.store.dispatch(loadCats());
     }
   }
@@ -65,7 +83,7 @@ export class CatListComponent implements OnInit {
   private isLoadMoreVisible() {
     const loadMoreElement = this.loadMore.nativeElement;
     const rect = loadMoreElement.getBoundingClientRect();
-    const isVisible = rect.top < window.innerHeight + 300 && rect.bottom > 0;
+    const isVisible = rect.top < window.innerHeight + 500 && rect.bottom > 0;
     return isVisible;
   }
 }
