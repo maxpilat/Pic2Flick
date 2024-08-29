@@ -1,6 +1,0 @@
-<ngx-masonry class="cat-list" [options]="{ fitWidth: true }">
-  <cat-card ngxMasonryItem *ngFor="let cat of cats$ | async" [cat]="cat" (imageLoaded)="onImageLoaded()"></cat-card>
-</ngx-masonry>
-<div class="loader" #loadMore>
-  <span *ngIf="isLoader"></span>
-</div>

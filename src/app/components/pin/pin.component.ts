@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Cat } from '../../store/models/cat.model';
+import { Pin } from '../../store/models/pin.model';
 
 @Component({
-  selector: 'cat-card',
+  selector: 'pin',
   standalone: true,
   imports: [],
-  templateUrl: './cat-card.component.html',
-  styleUrl: './cat-card.component.scss',
+  templateUrl: './pin.component.html',
+  styleUrl: './pin.component.scss',
 })
-export class CatCardComponent {
-  @Input() cat!: Cat;
+export class PinComponent {
+  @Input() pin!: Pin;
   @Output() imageLoaded = new EventEmitter<void>();
 
   onImageLoad() {

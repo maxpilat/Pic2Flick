@@ -1,10 +1,10 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Cat } from '../../store/models/cat.model';
+import { Pin } from '../../store/models/pin.model';
 import { CommonModule } from '@angular/common';
-import { CatCardComponent } from '../cat-card/cat-card.component';
-import { CatsState } from '../../store/reducers/cats.reducer';
+import { PinComponent } from '../pin/pin.component';
+import { PinsState } from '../../store/reducers/pins.reducer';
 import { Store } from '@ngrx/store';
-import { loadCats } from '../../store/actions/cats.actions';
+import { loadPins } from '../../store/actions/pins.actions';
 import {
   debounceTime,
   filter,
@@ -17,18 +17,18 @@ import {
   takeWhile,
   tap,
 } from 'rxjs';
-import { selectCats, selectCatsPending } from '../../store/selectors/cats.selectors';
+import { selectPins, selectCatsPending } from '../../store/selectors/pins.selectors';
 import { NgxMasonryModule } from 'ngx-masonry';
 
 @Component({
-  selector: 'cat-list',
+  selector: 'pin-list',
   standalone: true,
-  imports: [CommonModule, CatCardComponent, NgxMasonryModule],
-  templateUrl: './cat-list.component.html',
-  styleUrl: './cat-list.component.scss',
+  imports: [CommonModule, PinComponent, NgxMasonryModule],
+  templateUrl: './pin-list.component.html',
+  styleUrl: './pin-list.component.scss',
 })
-export class CatListComponent implements OnInit, OnDestroy {
-  cats$: Observable<Cat[]>;
+export class PinListComponent implements OnInit, OnDestroy {
+  pins$: Observable<Pin[]>;
   @ViewChild('loadMore') private loadMore: ElementRef;
   private isLoading = false;
   private imagesLoadedCount = 0;
@@ -38,8 +38,8 @@ export class CatListComponent implements OnInit, OnDestroy {
   private imagesLoadedCountSubscription: Subscription;
   isLoader = false;
 
-  constructor(private store: Store<CatsState>) {
-    this.cats$ = this.store.select(selectCats);
+  constructor(private store: Store<PinsState>) {
+    this.pins$ = this.store.select(selectPins);
     this.store.select(selectCatsPending).subscribe((isLoading) => {
       this.isLoading = isLoading;
     });
@@ -47,7 +47,7 @@ export class CatListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initialLoading();
-    this.cats$.subscribe((cats) => {
+    this.pins$.subscribe((cats) => {
       this.imagesRequestedCount = cats.length;
     });
 
@@ -69,7 +69,7 @@ export class CatListComponent implements OnInit, OnDestroy {
         takeWhile(() => this.isLoadMoreVisible()),
         filter(() => !this.isLoading && this.imagesLoadedCount === this.imagesRequestedCount),
         switchMap(() => {
-          this.store.dispatch(loadCats());
+          this.store.dispatch(loadPins());
           return this.store.select(selectCatsPending).pipe(take(1));
         })
       )
@@ -98,8 +98,8 @@ export class CatListComponent implements OnInit, OnDestroy {
 
   private handleScroll() {
     if (this.isLoadMoreVisible() && !this.isLoading && this.imagesLoadedCount === this.imagesRequestedCount) {
-      this.store.dispatch(loadCats());
-      this.store.dispatch(loadCats());
+      this.store.dispatch(loadPins());
+      this.store.dispatch(loadPins());
     }
   }
 

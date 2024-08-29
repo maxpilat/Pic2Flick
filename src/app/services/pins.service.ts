@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cat } from '../store/models/cat.model';
+import { Pin } from '../store/models/pin.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CatsService {
+export class PinsService {
   constructor(private http: HttpClient) {}
 
-  getCats() {
-    return this.http.get<Cat[]>('https://api.thecatapi.com/v1/images/search?limit=10');
+  getPins() {
+    return this.http.get<Pin[]>('https://api.thecatapi.com/v1/images/search?limit=10');
   }
 }
