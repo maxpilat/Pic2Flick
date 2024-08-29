@@ -1,4 +1,4 @@
-<div class="cat-list">
-  <cat-card *ngFor="let cat of cats$ | async" [cat]="cat"></cat-card>
-  <div #loadMore></div>
-</div>
+<ngx-masonry class="cat-list" [options]="{ fitWidth: true }">
+  <cat-card ngxMasonryItem *ngFor="let cat of cats$ | async" [cat]="cat" (imageLoaded)="onImageLoaded()"></cat-card>
+</ngx-masonry>
+<div #loadMore>load more</div>

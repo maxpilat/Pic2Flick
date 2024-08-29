@@ -8,6 +8,7 @@ import { reducers } from './store';
 import * as counterEffects from './store/effects/counter.effects';
 import * as catsEffects from './store/effects/cats.effects';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,5 +18,6 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects(counterEffects, catsEffects),
     provideHttpClient(),
+    provideAnimations(),
   ],
 };

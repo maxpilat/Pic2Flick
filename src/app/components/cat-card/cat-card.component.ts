@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Cat } from '../../store/models/cat.model';
 
 @Component({
@@ -10,4 +10,9 @@ import { Cat } from '../../store/models/cat.model';
 })
 export class CatCardComponent {
   @Input() cat!: Cat;
+  @Output() imageLoaded = new EventEmitter<void>();
+
+  onImageLoad() {
+    this.imageLoaded.emit();
+  }
 }

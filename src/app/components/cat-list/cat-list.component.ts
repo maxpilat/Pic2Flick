@@ -7,11 +7,12 @@ import { Store } from '@ngrx/store';
 import { loadCats } from '../../store/actions/cats.actions';
 import { filter, interval, Observable, switchMap, take, takeWhile } from 'rxjs';
 import { selectCats, selectCatsPending } from '../../store/selectors/cats.selectors';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @Component({
   selector: 'cat-list',
   standalone: true,
-  imports: [CommonModule, CatCardComponent],
+  imports: [CommonModule, CatCardComponent, NgxMasonryModule],
   templateUrl: './cat-list.component.html',
   styleUrl: './cat-list.component.scss',
 })
@@ -20,6 +21,8 @@ export class CatListComponent implements OnInit {
 
   @ViewChild('loadMore') private loadMore!: ElementRef;
   private isLoading = false;
+  private imagesLoadedCount = 0;
+  private totalCats = 0;
 
   constructor(private store: Store<CatsState>) {
     this.cats$ = this.store.select(selectCats);
@@ -30,36 +33,39 @@ export class CatListComponent implements OnInit {
 
   ngOnInit() {
     this.initialLoading();
+    this.cats$.subscribe((cats) => {
+      this.totalCats = cats.length;
+    });
   }
 
   private initialLoading() {
     interval(500)
       .pipe(
-        takeWhile(() => this.isLoadMore()),
-        filter(() => !this.isLoading),
+        takeWhile(() => this.isLoadMoreVisible()),
+        filter(() => !this.isLoading && this.imagesLoadedCount === this.totalCats),
         switchMap(() => {
           this.store.dispatch(loadCats());
           return this.store.select(selectCatsPending).pipe(take(1));
         })
       )
-      .subscribe((isLoading) => {
-        if (!isLoading) {
-          this.initialLoading();
-        }
-      });
+      .subscribe();
   }
 
-  @HostListener('wheel', ['$event'])
-  onWheel(event: WheelEvent) {
-    if (event.deltaY > 0 && this.isLoadMore() && !this.isLoading) {
+  onImageLoaded() {
+    this.imagesLoadedCount++;
+  }
+
+  @HostListener('window:scroll')
+  onScroll() {
+    if (this.isLoadMoreVisible() && !this.isLoading && this.imagesLoadedCount === this.totalCats) {
       this.store.dispatch(loadCats());
     }
   }
 
-  private isLoadMore() {
+  private isLoadMoreVisible() {
     const loadMoreElement = this.loadMore.nativeElement;
     const rect = loadMoreElement.getBoundingClientRect();
-    const isVisible = rect.top < window.innerHeight + 500 && rect.bottom > 0;
+    const isVisible = rect.top < window.innerHeight + 300 && rect.bottom > 0;
     return isVisible;
   }
 }

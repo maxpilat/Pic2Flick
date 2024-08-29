@@ -1,17 +1,10 @@
 .cat-card {
-  overflow: hidden; /* Скрытие переполнения */
-  border-radius: 8px; /* Закругленные углы */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Тень для эффекта глубины */
-  transition: transform 0.3s; /* Плавный переход при наведении */
-  margin: 10px;
-}
+  overflow: hidden;
+  width: 240px;
+  margin: 8px;
 
-.cat-card:hover {
-  transform: scale(1.05); /* Увеличение при наведении */
-}
-
-.cat-card img {
-  width: 100%; /* Ширина изображения на 100% */
-  height: auto; /* Автоматическая высота для сохранения пропорций */
-  display: block; /* Убираем отступы под изображением */
+  img {
+    width: 100%;
+    border-radius: 16px;
+  }
 }
