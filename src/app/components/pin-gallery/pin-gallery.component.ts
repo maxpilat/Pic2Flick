@@ -1,22 +1,11 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Pin } from '../../store/models/pin.model';
 import { CommonModule } from '@angular/common';
 import { PinComponent } from '../pin/pin.component';
 import { PinsState } from '../../store/reducers/pins.reducer';
 import { Store } from '@ngrx/store';
 import { loadPins } from '../../store/actions/pins.actions';
-import {
-  debounceTime,
-  filter,
-  interval,
-  Observable,
-  Subject,
-  Subscription,
-  switchMap,
-  take,
-  takeWhile,
-  tap,
-} from 'rxjs';
+import { debounceTime, filter, interval, Observable, Subject, switchMap, take, takeWhile, tap } from 'rxjs';
 import { selectPins, selectCatsPending } from '../../store/selectors/pins.selectors';
 import { NgxMasonryModule } from 'ngx-masonry';
 
