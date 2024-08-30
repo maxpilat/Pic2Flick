@@ -1,10 +1,13 @@
 .app {
-  padding: 20px;
-
   nav {
-    background-color: #1c2024;
+    background-color: #101010;
     border-radius: 16px;
     padding: 20px;
+    margin: 14px;
+
+    @media (min-width: 1012px) {
+      margin: 20px;
+    }
 
     ul {
       list-style: none;

@@ -1,3 +1,4 @@
-<div class="pin">
+<div #pinElem class="pin">
+  <div class="overlay"></div>
   <img src="{{ pin.urls.small }}" alt="{{ pin.alt_description }}" (load)="onImageLoad()" role="img" />
 </div>

@@ -1,3 +1,4 @@
+
 <ngx-masonry class="pin-gallery" [options]="{ fitWidth: true }">
   <pin ngxMasonryItem *ngFor="let pin of pins$ | async" [pin]="pin" (imageLoaded)="onImageLoaded()"></pin>
 </ngx-masonry>
