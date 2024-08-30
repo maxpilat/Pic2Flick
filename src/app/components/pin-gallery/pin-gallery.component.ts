@@ -30,6 +30,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 export class PinGalleryComponent implements OnInit, OnDestroy {
   pins$: Observable<Pin[]>;
   @ViewChild('loadMore') private loadMore: ElementRef;
+  private currentPage = 0;
   private isLoading = false;
   private imagesLoadedCount = 0;
   private imagesRequestedCount = 0;
@@ -69,7 +70,7 @@ export class PinGalleryComponent implements OnInit, OnDestroy {
         takeWhile(() => this.isLoadMoreVisible()),
         filter(() => !this.isLoading && this.imagesLoadedCount === this.imagesRequestedCount),
         switchMap(() => {
-          this.store.dispatch(loadPins());
+          this.store.dispatch(loadPins({ page: ++this.currentPage }));
           return this.store.select(selectCatsPending).pipe(take(1));
         })
       )
@@ -98,8 +99,7 @@ export class PinGalleryComponent implements OnInit, OnDestroy {
 
   private handleScroll() {
     if (this.isLoadMoreVisible() && !this.isLoading && this.imagesLoadedCount === this.imagesRequestedCount) {
-      this.store.dispatch(loadPins());
-      this.store.dispatch(loadPins());
+      this.store.dispatch(loadPins({ page: ++this.currentPage }));
     }
   }
 

@@ -7,7 +7,7 @@ export enum PinsActionsTypes {
   loadPinsError = '[PINS] Load Pins Error',
 }
 
-export const loadPins = createAction(PinsActionsTypes.loadPins);
+export const loadPins = createAction(PinsActionsTypes.loadPins, props<{ page: number }>());
 
 export const loadPinsSuccess = createAction(PinsActionsTypes.loadPinsSuccess, props<{ pins: Pin[] }>());
 

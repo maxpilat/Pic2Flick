@@ -1,6 +1,9 @@
 export type Pin = {
   id: string;
-  url: string;
+  urls: {
+    full: string;
+    small: string;
+  };
   width: number;
   height: number;
 };
