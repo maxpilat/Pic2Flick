@@ -8,9 +8,10 @@ import { Pin } from '../store/models/pin.model';
 export class PinsService {
   constructor(private http: HttpClient) {}
 
+  private baseUrl = 'https://api.unsplash.com';
+  private clientId = 'kQ6xg4d5ZklemPe-j7h9FkngtAQOS1_0Lm2ax6O-foE';
+
   getPins(page: number) {
-    return this.http.get<Pin[]>(
-      `https://api.unsplash.com/photos/?page=${page}&per_page=20&client_id=kQ6xg4d5ZklemPe-j7h9FkngtAQOS1_0Lm2ax6O-foE`
-    );
+    return this.http.get<Pin[]>(`${this.baseUrl}/photos/?page=${page}&per_page=20&client_id=${this.clientId}`);
   }
 }
