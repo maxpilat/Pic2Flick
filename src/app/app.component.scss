@@ -1,3 +1,34 @@
 .wrapper {
   padding: 20px;
 }
+
+nav {
+  background-color: #1c2024;
+  border-radius: 16px;
+  padding: 20px;
+
+  ul {
+    list-style: none;
+
+    li {
+      display: inline;
+      margin-right: 15px;
+
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 6px;
+        transition: background-color 0.1s;
+
+        &.active {
+          background-color: #ff0000;
+        }
+      }
+    }
+  }
+}
+
+.content {
+  margin-top: 20px;
+}

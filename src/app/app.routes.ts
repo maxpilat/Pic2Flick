@@ -5,4 +5,5 @@ import { PinGalleryComponent } from './components/pin-gallery/pin-gallery.compon
 export const routes: Routes = [
   { path: 'counter', component: CounterComponent },
   { path: 'gallery', component: PinGalleryComponent },
+  { path: '', redirectTo: 'gallery', pathMatch: 'full' },
 ];

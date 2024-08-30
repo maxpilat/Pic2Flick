@@ -27,7 +27,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
   templateUrl: './pin-gallery.component.html',
   styleUrl: './pin-gallery.component.scss',
 })
-export class PinGalleryComponent implements OnInit, OnDestroy {
+export class PinGalleryComponent implements OnInit {
   pins$: Observable<Pin[]>;
   @ViewChild('loadMore') private loadMore: ElementRef;
   private currentPage = 0;
@@ -36,8 +36,7 @@ export class PinGalleryComponent implements OnInit, OnDestroy {
   private imagesRequestedCount = 0;
   private lastTouchY = 0;
   private imagesLoadedCount$ = new Subject<number>();
-  private imagesLoadedCountSubscription: Subscription;
-  isLoader = false;
+  isLoader = true;
 
   constructor(private store: Store<PinsState>) {
     this.pins$ = this.store.select(selectPins);
@@ -58,10 +57,6 @@ export class PinGalleryComponent implements OnInit, OnDestroy {
         debounceTime(1000)
       )
       .subscribe(() => (this.isLoader = true));
-  }
-
-  ngOnDestroy() {
-    this.imagesLoadedCountSubscription.unsubscribe();
   }
 
   private initialLoading() {
