@@ -19,13 +19,16 @@
         a {
           color: #ffffff;
           text-decoration: none;
-          padding: 5px 10px;
           border-radius: 6px;
           transition: background-color 0.1s;
+        }
 
-          &.active {
-            background-color: #ff0000;
-          }
+        button {
+          background-color: transparent;
+        }
+        :focus {
+          background-color: #f11b1b;
+          outline: none;
         }
       }
     }
