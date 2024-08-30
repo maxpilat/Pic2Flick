@@ -21,13 +21,13 @@ import { selectPins, selectCatsPending } from '../../store/selectors/pins.select
 import { NgxMasonryModule } from 'ngx-masonry';
 
 @Component({
-  selector: 'pin-list',
+  selector: 'pin-gallery',
   standalone: true,
   imports: [CommonModule, PinComponent, NgxMasonryModule],
-  templateUrl: './pin-list.component.html',
-  styleUrl: './pin-list.component.scss',
+  templateUrl: './pin-gallery.component.html',
+  styleUrl: './pin-gallery.component.scss',
 })
-export class PinListComponent implements OnInit, OnDestroy {
+export class PinGalleryComponent implements OnInit, OnDestroy {
   pins$: Observable<Pin[]>;
   @ViewChild('loadMore') private loadMore: ElementRef;
   private isLoading = false;

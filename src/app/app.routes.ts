@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { CounterComponent } from './components/counter/counter.component';
-import { PinListComponent } from './components/pin-list/pin-list.component';
+import { PinGalleryComponent } from './components/pin-gallery/pin-gallery.component';
 
 export const routes: Routes = [
   { path: 'counter', component: CounterComponent },
-  { path: 'cats', component: PinListComponent },
+  { path: 'gallery', component: PinGalleryComponent },
 ];

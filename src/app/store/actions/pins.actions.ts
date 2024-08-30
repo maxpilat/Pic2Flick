@@ -2,13 +2,13 @@ import { createAction, props } from '@ngrx/store';
 import { Pin } from '../models/pin.model';
 
 export enum PinsActionsTypes {
-  loadCats = '[PINS] Load Pins',
-  loadCatsSuccess = '[PINS] Load Pins Success',
-  loadCatsError = '[PINS] Load Pins Error',
+  loadPins = '[PINS] Load Pins',
+  loadPinsSuccess = '[PINS] Load Pins Success',
+  loadPinsError = '[PINS] Load Pins Error',
 }
 
-export const loadPins = createAction(PinsActionsTypes.loadCats);
+export const loadPins = createAction(PinsActionsTypes.loadPins);
 
-export const loadPinsSuccess = createAction(PinsActionsTypes.loadCatsSuccess, props<{ pins: Pin[] }>());
+export const loadPinsSuccess = createAction(PinsActionsTypes.loadPinsSuccess, props<{ pins: Pin[] }>());
 
-export const loadPinsError = createAction(PinsActionsTypes.loadCatsError);
+export const loadPinsError = createAction(PinsActionsTypes.loadPinsError);
