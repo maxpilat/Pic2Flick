@@ -2,14 +2,14 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { increment, decrement, clear, updatedAt } from '../actions/counter.actions';
 import { map } from 'rxjs';
-import { LoggingService } from '../../services/logging.service';
+import { Logger } from '../../services/logger.service';
 
 export const updatedAtEffect = createEffect(
-  (actions$ = inject(Actions), loggingService = inject(LoggingService)) =>
+  (actions$ = inject(Actions), logger = inject(Logger)) =>
     actions$.pipe(
       ofType(increment, decrement, clear),
       map((action) => {
-        loggingService.logAction(action.type);
+        logger.logAction(action.type);
         return updatedAt({ updatedAt: Date.now() });
       })
     ),

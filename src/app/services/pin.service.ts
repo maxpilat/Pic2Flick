@@ -5,7 +5,7 @@ import { Pin } from '../store/models/pin.model';
 @Injectable({
   providedIn: 'root',
 })
-export class PinsService {
+export class PinService {
   constructor(private http: HttpClient) {}
 
   private baseUrl = 'https://api.unsplash.com';
