@@ -1,6 +1,6 @@
 .app {
   nav {
-    background-color: #101010;
+    background-color: var(--black);
     border-radius: 16px;
     padding: 20px;
     margin: 14px;
@@ -17,18 +17,20 @@
         margin-right: 15px;
 
         a {
-          color: #ffffff;
+          color: var(--white);
           text-decoration: none;
           border-radius: 6px;
           transition: background-color 0.1s;
-        }
 
-        button {
-          background-color: transparent;
-        }
-        :focus {
-          background-color: #f11b1b;
-          outline: none;
+          button {
+            background-color: transparent;
+          }
+
+          &.active {
+            button {
+              background-color: var(--red);
+            }
+          }
         }
       }
     }

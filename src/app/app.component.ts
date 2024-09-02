@@ -1,6 +1,5 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { filter } from 'rxjs';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,19 +9,5 @@ import { filter } from 'rxjs';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  @ViewChildren('tab') tabs: QueryList<ElementRef<HTMLButtonElement>>;
-
-  constructor(private router: Router) {}
-
-  ngAfterViewInit() {
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      this.setActiveTab(this.router.url);
-    });
-  }
-
-  private setActiveTab(url: string) {
-    this.tabs.forEach((btn) => btn.nativeElement.classList.remove('active'));
-    const tab = this.tabs.find((tab) => tab.nativeElement.parentElement.getAttribute('routerLink') === url);
-    tab.nativeElement.classList.add('active');
-  }
+  constructor() {}
 }
