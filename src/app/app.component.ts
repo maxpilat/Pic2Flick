@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
 
@@ -10,23 +10,19 @@ import { filter } from 'rxjs';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  @ViewChild('counterBtn') counterButton!: ElementRef<HTMLButtonElement>;
-  @ViewChild('galleryBtn') galleryButton!: ElementRef<HTMLButtonElement>;
+  @ViewChildren('tab') tabs: QueryList<ElementRef<HTMLButtonElement>>;
 
   constructor(private router: Router) {}
 
   ngAfterViewInit() {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      this.setFocus(this.router.url);
+      this.setActiveTab(this.router.url);
     });
   }
 
-  private setFocus(url: string) {
-    switch (url) {
-      case '/counter':
-        return this.counterButton.nativeElement.focus();
-      case '/gallery':
-        return this.galleryButton.nativeElement.focus();
-    }
+  private setActiveTab(url: string) {
+    this.tabs.forEach((btn) => btn.nativeElement.classList.remove('active'));
+    const tab = this.tabs.find((tab) => tab.nativeElement.parentElement.getAttribute('routerLink') === url);
+    tab.nativeElement.classList.add('active');
   }
 }

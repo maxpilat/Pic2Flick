@@ -26,6 +26,10 @@ button {
     background-color: #ccc;
     cursor: not-allowed;
   }
+
+  &.active {
+    background-color: #f11b1b !important;
+  }
 }
 
 .loader {
