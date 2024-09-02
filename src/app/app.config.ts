@@ -6,7 +6,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { reducers } from './store';
 import * as counterEffects from './store/effects/counter.effects';
-import * as pinsEffects from './store/effects/pins.effects';
+import * as pinEffects from './store/effects/pin.effects';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(reducers),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects(counterEffects, pinsEffects),
+    provideEffects(counterEffects, pinEffects),
     provideHttpClient(),
     provideAnimations(),
   ],

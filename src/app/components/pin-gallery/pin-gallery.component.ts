@@ -2,11 +2,11 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { Pin } from '../../store/models/pin.model';
 import { CommonModule } from '@angular/common';
 import { PinComponent } from '../pin/pin.component';
-import { PinsState } from '../../store/reducers/pins.reducer';
+import { PinState } from '../../store/reducers/pin.reducer';
 import { Store } from '@ngrx/store';
 import { loadPins } from '../../store/actions/pins.actions';
 import { debounceTime, filter, interval, Observable, Subject, switchMap, take, takeWhile, tap } from 'rxjs';
-import { selectPins, selectCatsPending } from '../../store/selectors/pins.selectors';
+import { selectPins, selectPinsPending } from '../../store/selectors/pin.selectors';
 import { NgxMasonryModule } from 'ngx-masonry';
 
 @Component({
@@ -21,26 +21,26 @@ export class PinGalleryComponent implements OnInit {
   @ViewChild('loadMore') private loadMore: ElementRef;
   private currentPage = 0;
   private isLoading = false;
-  private imagesLoadedCount = 0;
-  private imagesRequestedCount = 0;
+  private pinsLoadedCount = 0;
+  private pinsRequestedCount = 0;
+  private pinsLoadedCount$ = new Subject<number>();
   private lastTouchY = 0;
-  private imagesLoadedCount$ = new Subject<number>();
   isLoader = true;
 
-  constructor(private store: Store<PinsState>) {
+  constructor(private store: Store<PinState>) {
     this.pins$ = this.store.select(selectPins);
-    this.store.select(selectCatsPending).subscribe((isLoading) => {
+    this.store.select(selectPinsPending).subscribe((isLoading) => {
       this.isLoading = isLoading;
     });
   }
 
   ngOnInit() {
     this.initialLoading();
-    this.pins$.subscribe((cats) => {
-      this.imagesRequestedCount = cats.length;
+    this.pins$.subscribe((pins) => {
+      this.pinsRequestedCount = pins.length;
     });
 
-    this.imagesLoadedCount$
+    this.pinsLoadedCount$
       .pipe(
         tap(() => (this.isLoader = false)),
         debounceTime(1000)
@@ -52,17 +52,17 @@ export class PinGalleryComponent implements OnInit {
     interval(500)
       .pipe(
         takeWhile(() => this.isLoadMoreVisible()),
-        filter(() => !this.isLoading && this.imagesLoadedCount === this.imagesRequestedCount),
+        filter(() => !this.isLoading && this.pinsLoadedCount === this.pinsRequestedCount),
         switchMap(() => {
           this.store.dispatch(loadPins({ page: ++this.currentPage }));
-          return this.store.select(selectCatsPending).pipe(take(1));
+          return this.store.select(selectPinsPending).pipe(take(1));
         })
       )
       .subscribe();
   }
 
   onImageLoaded() {
-    this.imagesLoadedCount$.next(++this.imagesLoadedCount);
+    this.pinsLoadedCount$.next(++this.pinsLoadedCount);
   }
 
   @HostListener('wheel', ['$event'])
@@ -82,7 +82,7 @@ export class PinGalleryComponent implements OnInit {
   }
 
   private handleScroll() {
-    if (this.isLoadMoreVisible() && !this.isLoading && this.imagesLoadedCount === this.imagesRequestedCount) {
+    if (this.isLoadMoreVisible() && !this.isLoading && this.pinsLoadedCount === this.pinsRequestedCount) {
       this.store.dispatch(loadPins({ page: ++this.currentPage }));
     }
   }

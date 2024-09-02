@@ -1,13 +1,13 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { CounterState, counterNode, counterReducer } from './reducers/counter.reducer';
-import { pinsNode, pinsReducer, PinsState } from './reducers/pins.reducer';
+import { pinsNode, pinReducer, PinState } from './reducers/pin.reducer';
 
 export interface State {
   [counterNode]: CounterState;
-  [pinsNode]: PinsState;
+  [pinsNode]: PinState;
 }
 
 export const reducers: ActionReducerMap<State> = {
   [counterNode]: counterReducer,
-  [pinsNode]: pinsReducer,
+  [pinsNode]: pinReducer,
 };

@@ -5,21 +5,21 @@ import { Pending } from '../models/pending.model';
 
 export const pinsNode = 'pins';
 
-export type PinsState = {
+export type PinState = {
   pins: Pin[];
   pending: {
     getPins: Pending;
   };
 };
 
-const initialState: PinsState = {
+const initialState: PinState = {
   pins: [],
   pending: {
     getPins: Pending.None,
   },
 };
 
-export const pinsReducer = createReducer(
+export const pinReducer = createReducer(
   initialState,
   on(loadPins, (state) => ({
     ...state,
