@@ -7,8 +7,9 @@ import { provideStore } from '@ngrx/store';
 import { reducers } from './store';
 import * as counterEffects from './store/effects/counter.effects';
 import * as pinEffects from './store/effects/pin.effects';
-import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './auth/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideStore(reducers),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects(counterEffects, pinEffects),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimations(),
   ],
 };
