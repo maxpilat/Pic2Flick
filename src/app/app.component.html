@@ -1,18 +1,24 @@
 <div class="app">
-  <nav>
-    <ul>
-      <li>
-        <a routerLink="/counter" routerLinkActive="active" ariaCurrentWhenActive="page">
-          <button #tab>Counter</button>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/gallery" routerLinkActive="active" ariaCurrentWhenActive="page">
-          <button #tab>Gallery</button>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <div class="header">
+    <nav>
+      <ul>
+        <li>
+          <a routerLink="/counter" routerLinkActive="active" ariaCurrentWhenActive="page" role="tab">
+            <button>Counter</button>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/gallery" routerLinkActive="active" ariaCurrentWhenActive="page" role="tab">
+            <button>Gallery</button>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="profile">
+      <button (click)="signIn()">Sign in</button>
+    </div>
+  </div>
+
   <div class="content">
     <router-outlet></router-outlet>
   </div>

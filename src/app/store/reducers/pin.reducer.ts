@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { Pin } from '../models/pin.model';
 import { loadPins, loadPinsError, loadPinsSuccess } from '../actions/pins.actions';
 
-export const pinsNode = 'pins';
+export const pinNode = 'pins';
 
 export type PinState = {
   pins: Pin[];

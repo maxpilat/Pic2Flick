@@ -10,6 +10,6 @@ export class PinService {
   constructor(private http: HttpClient) {}
 
   getPins(page: number, perPage = 20) {
-    return this.http.get<Pin[]>(`${environment.remoteUrl}/photos/?page=${page}&per_page=${perPage}`);
+    return this.http.get<Pin[]>(`${environment.unsplashApiUrl}/photos/?page=${page}&per_page=${perPage}`, {});
   }
 }

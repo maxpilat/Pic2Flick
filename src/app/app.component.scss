@@ -1,38 +1,45 @@
 .app {
-  nav {
+  .header {
+    display: flex;
+    justify-content: space-between;
     background-color: var(--black);
     border-radius: 16px;
-    padding: 20px;
+    padding: 20px 30px;
     margin: 14px;
 
     @media (min-width: 1012px) {
       margin: 20px;
     }
 
-    ul {
-      list-style: none;
+    nav {
+      ul {
+        list-style: none;
 
-      li {
-        display: inline;
-        margin-right: 15px;
+        li {
+          display: inline;
+          margin-right: 15px;
 
-        a {
-          color: var(--white);
-          text-decoration: none;
-          border-radius: 6px;
-          transition: background-color 0.1s;
+          a {
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.1s;
 
-          button {
-            background-color: transparent;
-          }
-
-          &.active {
             button {
-              background-color: var(--red);
+              background-color: transparent;
+            }
+
+            &.active {
+              button {
+                color: var(--red);
+              }
             }
           }
         }
       }
+    }
+
+    .profile {
     }
   }
 
