@@ -20,9 +20,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       const code = params['code'];
-      if (code) {
-        this.handleAuthCode(code);
-      }
+      code && this.handleAuthCode(code);
     });
   }
 

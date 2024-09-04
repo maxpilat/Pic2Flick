@@ -25,6 +25,12 @@ export class AuthService {
     localStorage.removeItem(this.key);
   }
 
+  getToken(): Token | null {
+    const tokenStr = localStorage.getItem(this.key);
+
+    return tokenStr ? (JSON.parse(tokenStr) as Token) : null;
+  }
+
   authorize(code: string) {
     const body = {
       client_id: environment.accessKey,
