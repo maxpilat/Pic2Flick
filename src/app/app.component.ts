@@ -1,20 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { environment } from '../environments/environment.development';
-import { API } from './auth/constants/api.constant';
 import { AuthService } from './auth/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  private authUrl = `${environment.unsplashUrl}${API.authUrl}?client_id=${environment.accessKey}&redirect_uri=${window.location.origin}&response_type=code`;
+export class AppComponent implements OnInit {
+  isAuthorized: boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {
+    this.authService.isAuthorized$.subscribe((status) => (this.isAuthorized = status));
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -26,8 +27,7 @@ export class AppComponent {
   }
 
   private handleAuthCode(code: string) {
-    this.authService.getToken(code).subscribe((token) => {
-      localStorage.setItem('token', JSON.stringify(token));
+    this.authService.authorize(code).subscribe(() => {
       this.router.navigate([], {
         queryParams: { code: null },
         queryParamsHandling: 'merge',
@@ -36,6 +36,6 @@ export class AppComponent {
   }
 
   signIn() {
-    window.location.href = this.authUrl;
+    window.location.href = this.authService.getAuthUrl(window.location.origin);
   }
 }

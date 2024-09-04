@@ -52,6 +52,7 @@ export class PinGalleryComponent implements OnInit {
     interval(500)
       .pipe(
         takeWhile(() => this.isLoadMoreVisible()),
+        take(10),
         filter(() => !this.isLoading && this.pinsLoadedCount === this.pinsRequestedCount),
         switchMap(() => {
           this.store.dispatch(loadPins({ page: ++this.currentPage }));

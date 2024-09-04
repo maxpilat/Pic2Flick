@@ -15,7 +15,7 @@
       </ul>
     </nav>
     <div class="profile">
-      <button (click)="signIn()">Sign in</button>
+      <button (click)="signIn()" *ngIf="!isAuthorized">Sign in</button>
     </div>
   </div>
 
