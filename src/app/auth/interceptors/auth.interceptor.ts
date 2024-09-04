@@ -3,8 +3,6 @@ import { environment } from '../../../environments/environment.development';
 import { Token } from '../models/auth.model';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  console.log('authInterceptor');
-
   let token = localStorage.getItem('token');
 
   if (token) {
@@ -19,8 +17,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
-
-  console.log(clonedRequest);
 
   return next(clonedRequest);
 };
