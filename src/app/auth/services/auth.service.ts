@@ -14,8 +14,8 @@ export class AuthService {
   private tokenUrl = `${environment.unsplashUrl}${API.tokenUrl}`;
   private key = 'token';
 
-  private authStatusSubject = new BehaviorSubject(this.isAuthorized());
-  isAuthorized$ = this.authStatusSubject.asObservable();
+  private authSubject = new BehaviorSubject(this.getToken());
+  token$ = this.authSubject.asObservable();
 
   private saveToken(token: Token) {
     localStorage.setItem(this.key, JSON.stringify(token));
@@ -31,6 +31,10 @@ export class AuthService {
     return tokenStr ? (JSON.parse(tokenStr) as Token) : null;
   }
 
+  isAuthorized() {
+    return this.getToken() !== null;
+  }
+
   authorize(code: string) {
     const body = {
       client_id: environment.accessKey,
@@ -43,18 +47,14 @@ export class AuthService {
     return this.http.post<Token>(this.tokenUrl, body).pipe(
       tap((token) => {
         this.saveToken(token);
-        this.authStatusSubject.next(true);
+        this.authSubject.next(token);
       })
     );
   }
 
   unauthorize() {
     this.clearToken();
-    this.authStatusSubject.next(false);
-  }
-
-  isAuthorized() {
-    return localStorage.getItem(this.key) !== null;
+    this.authSubject.next(null);
   }
 
   getAuthUrl(redirectUrl: string) {

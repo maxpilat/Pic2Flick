@@ -15,7 +15,13 @@
       </ul>
     </nav>
     <div class="profile">
-      <button (click)="signIn()" *ngIf="!isAuthorized">Sign in</button>
+      <button (click)="signIn()" *ngIf="!token">Sign in</button>
+      <div #dropdownMenu class="dropdown" [class.open]="isDropdownOpen" *ngIf="token">
+        <button (click)="toggleDropdown()">{{ token.username }}</button>
+        <div class="dropdown-content">
+          <div (click)="signOut()">Logout</div>
+        </div>
+      </div>
     </div>
   </div>
 
