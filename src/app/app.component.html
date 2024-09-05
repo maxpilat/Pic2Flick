@@ -19,7 +19,7 @@
       <div #dropdownMenu class="dropdown" [class.open]="isDropdownOpen" *ngIf="token">
         <button (click)="toggleDropdown()">{{ token.username }}</button>
         <div class="dropdown-content">
-          <div (click)="signOut()">Logout</div>
+          <div (click)="signOut()">Sign out</div>
         </div>
       </div>
     </div>

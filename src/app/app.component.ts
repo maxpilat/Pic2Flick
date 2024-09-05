@@ -1,8 +1,9 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthService } from './auth/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Token } from './auth/models/auth.model';
+import { environment } from '../environments/environment.development';
 
 @Component({
   selector: 'app-root',
@@ -11,39 +12,22 @@ import { Token } from './auth/models/auth.model';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
-  token: Token;
-  isDropdownOpen: boolean;
+export class AppComponent {
+  token!: Token | null;
+  isDropdownOpen = false;
 
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef<HTMLDivElement>;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {
+  constructor(private authService: AuthService) {
     this.authService.token$.subscribe((token) => (this.token = token));
   }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      const code = params['code'];
-      code && this.handleAuthCode(code);
-    });
-  }
-
-  private handleAuthCode(code: string) {
-    this.authService.authorize(code).subscribe(() => {
-      this.router.navigate([], {
-        queryParams: { code: null },
-        queryParamsHandling: 'merge',
-      });
-    });
-  }
-
   signIn() {
-    window.location.href = this.authService.getAuthUrl(window.location.origin);
+    this.authService.authorize(environment.originUrl);
   }
 
   signOut() {
     this.authService.unauthorize();
-    window.location.reload();
   }
 
   toggleDropdown() {

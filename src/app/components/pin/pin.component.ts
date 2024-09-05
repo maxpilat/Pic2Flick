@@ -11,7 +11,7 @@ import { Pin } from '../../store/models/pin.model';
 export class PinComponent {
   @Input() pin!: Pin;
   @Output() private imageLoaded = new EventEmitter<void>();
-  @ViewChild('pinElem') private pinRef: ElementRef;
+  @ViewChild('pinElem') private pinRef!: ElementRef;
 
   ngAfterViewInit() {
     this.calcPinWidth();

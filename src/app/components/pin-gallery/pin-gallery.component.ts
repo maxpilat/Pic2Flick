@@ -18,7 +18,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 })
 export class PinGalleryComponent implements OnInit {
   pins$: Observable<Pin[]>;
-  @ViewChild('loadMore') private loadMore: ElementRef;
+  @ViewChild('loadMore') private loadMore!: ElementRef;
   private currentPage = 0;
   private isLoading = false;
   private pinsLoadedCount = 0;
