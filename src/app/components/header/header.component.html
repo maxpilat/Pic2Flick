@@ -1,7 +1,7 @@
 <div #header class="header">
   <nav>
     <ul>
-      <li>
+      <li *ngIf="token">
         <a routerLink="/counter" routerLinkActive="active" ariaCurrentWhenActive="page" role="tab">
           <button>Counter</button>
         </a>
