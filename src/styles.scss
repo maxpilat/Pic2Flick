@@ -12,7 +12,7 @@
   --grey: #cccccc;
   --light-grey: #e4e4e4;
   --red: #f11b1b;
-  --black-transparent: rgba(0, 0, 0, 0.7);
+  --black-transparent: rgba(0, 0, 0, 0.9);
 }
 
 a {
@@ -37,5 +37,6 @@ button {
   &:disabled {
     background-color: var(--grey);
     cursor: not-allowed;
+    transform: none;
   }
 }

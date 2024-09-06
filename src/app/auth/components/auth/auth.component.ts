@@ -3,7 +3,7 @@ import { LoaderComponent } from '../../../components/loader/loader.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { environment } from '../../../../environments/environment.development';
-import { first } from 'rxjs';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -21,9 +21,9 @@ export class AuthComponent implements OnInit {
       const redirectUrl: string = params['redirectUrl'];
 
       if (code) {
-        this.authService.token$.pipe(first()).subscribe(() => {
+        this.authService.token$.pipe(filter((token) => token !== null)).subscribe((token) => {
           this.router.navigateByUrl(this.authService.getRedirectUrl() || environment.originUrl);
-          this.authService.setRedirectUrl(null); // ?
+          this.authService.setRedirectUrl(null);
         });
         this.authService.authorize(code);
       } else if (redirectUrl) {

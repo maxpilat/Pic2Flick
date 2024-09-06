@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { API } from '../constants/api.constant';
-import { BehaviorSubject, take, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Token } from '../models/auth.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -30,8 +30,9 @@ export class AuthService {
   setRedirectUrl(redirectUrl: string | null) {
     if (redirectUrl) {
       localStorage.setItem(this.redirectUrlKey, redirectUrl);
+    } else {
+      localStorage.removeItem(this.redirectUrlKey);
     }
-    localStorage.removeItem(this.redirectUrlKey);
   }
 
   getRedirectUrl() {
