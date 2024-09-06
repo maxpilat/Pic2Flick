@@ -1,4 +1,4 @@
 export const API = {
-  authUrl: '/oauth/authorize',
-  tokenUrl: '/oauth/token',
+  authPath: '/oauth/authorize',
+  tokenPath: '/oauth/token',
 };

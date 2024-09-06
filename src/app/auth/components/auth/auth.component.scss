@@ -1,0 +1,12 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  height: calc(100vh - 150px);
+
+  h1 {
+    margin-bottom: 7px;
+  }
+}

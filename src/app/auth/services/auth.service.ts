@@ -10,9 +10,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  private tokenUrl = `${environment.unsplashUrl}${API.tokenUrl}`;
+  private readonly authenticationUrl = `${environment.unsplashUrl}${API.authPath}?client_id=${environment.accessKey}&redirect_uri=${environment.authUrl}&response_type=code`;
+  private readonly authorizationUrl = `${environment.unsplashUrl}${API.tokenPath}`;
   private readonly tokenKey = 'token';
   private readonly redirectUrlKey = 'redirectUrl';
   private authSubject = new BehaviorSubject(this.getToken());
@@ -26,8 +27,11 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
   }
 
-  setRedirectUrl(redirectUrl: string) {
-    localStorage.setItem(this.redirectUrlKey, redirectUrl);
+  setRedirectUrl(redirectUrl: string | null) {
+    if (redirectUrl) {
+      localStorage.setItem(this.redirectUrlKey, redirectUrl);
+    }
+    localStorage.removeItem(this.redirectUrlKey);
   }
 
   getRedirectUrl() {
@@ -40,40 +44,32 @@ export class AuthService {
     return tokenStr ? (JSON.parse(tokenStr) as Token) : null;
   }
 
-  getAuthUrl(redirectUrl: string = environment.originUrl) {
-    return `${environment.unsplashUrl}${API.authUrl}?client_id=${environment.accessKey}&redirect_uri=${redirectUrl}&response_type=code`;
-  }
-
   isAuthorized() {
     return this.getToken() !== null;
   }
 
-  authorize(redirectUrl: string) {
-    this.route.queryParams.pipe().subscribe((params) => {
-      const code = params['code'];
-      if (code) console.log(code);
+  authenticate() {
+    window.location.href = this.authenticationUrl;
+  }
 
-      // const body = {
-      //   client_id: environment.accessKey,
-      //   client_secret: environment.secretKey,
-      //   redirect_uri: environment.originUrl,
-      //   code,
-      //   grant_type: 'authorization_code',
-      // };
+  authorize(code: string) {
+    const body = {
+      client_id: environment.accessKey,
+      client_secret: environment.secretKey,
+      redirect_uri: environment.authUrl,
+      code,
+      grant_type: 'authorization_code',
+    };
 
-      // this.http.post<Token>(this.tokenUrl, body).subscribe((token) => {
-      //   this.saveToken(token);
-      //   this.authSubject.next(token);
-      //   // window.location.href = redirectUrl;
-      // });
+    this.http.post<Token>(this.authorizationUrl, body).subscribe((token) => {
+      this.saveToken(token);
+      this.authSubject.next(token);
     });
-
-    window.location.href = this.getAuthUrl();
   }
 
   unauthorize() {
     this.clearToken();
     this.authSubject.next(null);
-    this.router.navigateByUrl(environment.originUrl);
+    window.location.href = environment.originUrl;
   }
 }

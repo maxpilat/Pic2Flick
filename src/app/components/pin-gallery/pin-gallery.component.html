@@ -1,7 +1,6 @@
-
 <ngx-masonry class="pin-gallery" [options]="{ fitWidth: true }">
   <pin ngxMasonryItem *ngFor="let pin of pins$ | async" [pin]="pin" (imageLoaded)="onImageLoaded()"></pin>
 </ngx-masonry>
-<div class="loader" #loadMore>
-  <span *ngIf="isLoader"></span>
+<div #loadMore class="loader-container">
+  <loader [isLoader]="isLoader"></loader>
 </div>

@@ -1,9 +1,8 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from './auth/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Token } from './auth/models/auth.model';
-import { environment } from '../environments/environment.development';
 
 @Component({
   selector: 'app-root',
@@ -18,16 +17,16 @@ export class AppComponent {
 
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef<HTMLDivElement>;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.authService.token$.subscribe((token) => (this.token = token));
   }
 
   signIn() {
-    this.authService.authorize(environment.originUrl);
+    this.router.navigate(['auth'], { queryParams: { redirectUrl: this.router.url } });
   }
 
   signOut() {
-    this.authService.unauthorize();
+    this.router.navigate(['auth']);
   }
 
   toggleDropdown() {
@@ -40,7 +39,7 @@ export class AppComponent {
     const dropdown = this.dropdownMenu?.nativeElement;
 
     if (this.isDropdownOpen && dropdown && !dropdown.contains(target)) {
-      this.isDropdownOpen = false;
+      this.toggleDropdown();
     }
   }
 }

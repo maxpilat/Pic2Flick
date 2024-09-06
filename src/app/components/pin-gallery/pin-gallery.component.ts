@@ -8,11 +8,12 @@ import { loadPins } from '../../store/actions/pins.actions';
 import { debounceTime, filter, interval, Observable, Subject, switchMap, take, takeWhile, tap } from 'rxjs';
 import { selectPins, selectPinsPending } from '../../store/selectors/pin.selectors';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'pin-gallery',
   standalone: true,
-  imports: [CommonModule, PinComponent, NgxMasonryModule],
+  imports: [CommonModule, PinComponent, NgxMasonryModule, LoaderComponent],
   templateUrl: './pin-gallery.component.html',
   styleUrl: './pin-gallery.component.scss',
 })
