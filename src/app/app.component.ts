@@ -1,8 +1,5 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { AuthService } from './auth/services/auth.service';
-import { CommonModule } from '@angular/common';
-import { Token } from './auth/models/auth.model';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 
 @Component({

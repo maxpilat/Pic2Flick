@@ -21,6 +21,7 @@ export class HeaderComponent {
   constructor(private authService: AuthService, private router: Router) {
     this.authService.token$.subscribe((token) => (this.token = token));
   }
+
   signIn() {
     this.router.navigate(['auth'], { queryParams: { redirectUrl: this.router.url } });
   }
