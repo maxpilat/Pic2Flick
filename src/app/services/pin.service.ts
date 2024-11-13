@@ -1,35 +1,34 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { Observable } from 'rxjs';
 
 export type Pin = {
-  id: string;
-  alt_description: string;
-  asset_type: string;
-  blur_hash: string;
-  color: string;
-  created_at: string;
-  likes: number;
-  liked_by_user: boolean;
-  urls: {
-    full: string;
-    raw: string;
-    regular: string;
-    small: string;
-    small_s3: string;
-    thumb: string;
-  };
-  width: number;
-  height: number;
+  url: string;
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class PinService {
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  getPins(page: number, perPage = 20) {
-    return this.http.get<Pin[]>(`${environment.unsplashApiUrl}/photos/?page=${page}&per_page=${perPage}`);
+  getPins(page: number, perPage = 20): Observable<Pin[]> {
+    return new Observable<Pin[]>((observer) => {
+      setTimeout(() => {
+        const mockPins: Pin[] = [
+          { url: 'https://example.com/photo1.jpg' },
+          { url: 'https://example.com/photo2.jpg' },
+          { url: 'https://example.com/photo3.jpg' },
+          { url: 'https://example.com/photo4.jpg' },
+          { url: 'https://example.com/photo5.jpg' },
+          { url: 'https://example.com/photo6.jpg' },
+          { url: 'https://example.com/photo7.jpg' },
+          { url: 'https://example.com/photo8.jpg' },
+          { url: 'https://example.com/photo9.jpg' },
+          { url: 'https://example.com/photo10.jpg' },
+        ];
+        observer.next(mockPins);
+        observer.complete();
+      }, 1000);
+    });
   }
 }

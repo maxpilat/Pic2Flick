@@ -27,6 +27,7 @@ export class PinGalleryComponent implements OnInit {
   private pinsLoadedCount$ = new Subject<number>();
   private lastTouchY = 0;
   isLoader = true;
+  private allPinsLoaded = false; // Новый флаг для отслеживания состояния загрузки всех пинов
 
   constructor(private store: Store<PinState>) {
     this.pins$ = this.store.select(selectPins);
@@ -43,10 +44,20 @@ export class PinGalleryComponent implements OnInit {
 
     this.pinsLoadedCount$
       .pipe(
-        tap(() => (this.isLoader = false)),
+        tap(() => {
+          this.isLoader = false;
+          // Если все пины загружены, устанавливаем флаг, чтобы больше не показывать лоадер
+          if (this.pinsLoadedCount === this.pinsRequestedCount) {
+            this.allPinsLoaded = true;
+          }
+        }),
         debounceTime(1000)
       )
-      .subscribe(() => (this.isLoader = true));
+      .subscribe(() => {
+        if (!this.allPinsLoaded) {
+          this.isLoader = true;
+        }
+      });
   }
 
   private initialLoading() {
