@@ -1,0 +1,72 @@
+.movie-collection {
+  padding: 1rem;
+  margin-top: 95px;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .movie-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .movie-poster {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .movie-info {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      h3 {
+        font-size: 1.25rem;
+        margin: 0;
+        color: #333;
+      }
+
+      .genre,
+      .release-date,
+      .description,
+      .rating,
+      .countries,
+      .duration,
+      .age-limit,
+      .directors,
+      .actors {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .trailer-link {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: #007bff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

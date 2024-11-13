@@ -1,5 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { Pin } from '../../store/models/pin.model';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { Pin } from '../../services/pin.service';
 
 @Component({
   selector: 'pin',
@@ -8,10 +9,12 @@ import { Pin } from '../../store/models/pin.model';
   templateUrl: './pin.component.html',
   styleUrl: './pin.component.scss',
 })
-export class PinComponent {
+export class PinComponent implements AfterViewInit {
   @Input() pin!: Pin;
   @Output() private imageLoaded = new EventEmitter<void>();
   @ViewChild('pinElem') private pinRef!: ElementRef;
+
+  constructor(private router: Router) {}
 
   ngAfterViewInit() {
     this.calcPinWidth();
@@ -33,5 +36,9 @@ export class PinComponent {
 
   onImageLoad() {
     this.imageLoaded.emit();
+  }
+
+  handleClick() {
+    this.router.navigate(['/movie-collection']);
   }
 }

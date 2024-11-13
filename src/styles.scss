@@ -12,7 +12,10 @@
   --grey: #cccccc;
   --light-grey: #e4e4e4;
   --red: #f11b1b;
+  --dark-red: #d11a1a;
   --black-transparent: rgba(0, 0, 0, 0.9);
+
+  --border-radius: 6px;
 }
 
 a {
@@ -26,7 +29,7 @@ button {
   color: var(--white);
   background-color: var(--red);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   transition: transform 0.3s, background-color 0.1s;
 
@@ -38,5 +41,9 @@ button {
     background-color: var(--grey);
     cursor: not-allowed;
     transform: none;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: var(--dark-red);
   }
 }

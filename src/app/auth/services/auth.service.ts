@@ -1,76 +1,61 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment.development';
-import { API } from '../constants/api.constant';
-import { BehaviorSubject } from 'rxjs';
-import { Token } from '../models/auth.model';
-import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  private apiUrl = 'https://example.com/api'; // Замените на ваш API URL
+  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject(null);
+  public currentUser$: Observable<any> = this.currentUserSubject.asObservable();
 
-  private readonly authenticationUrl = `${environment.unsplashUrl}${API.authPath}?client_id=${environment.accessKey}&redirect_uri=${environment.authUrl}&response_type=code`;
-  private readonly authorizationUrl = `${environment.unsplashUrl}${API.tokenPath}`;
-  private readonly tokenKey = 'token';
-  private readonly redirectUrlKey = 'redirectUrl';
-  private authSubject = new BehaviorSubject(this.getToken());
-  token$ = this.authSubject.asObservable();
+  constructor(private http: HttpClient) {}
 
-  private saveToken(token: Token) {
-    localStorage.setItem(this.tokenKey, JSON.stringify(token));
+  login(email: string, password: string): Observable<any> {
+    // const body = { email, password };
+    // return this.http.post<any>(`${this.apiUrl}/auth/login`, body).pipe(
+    //   tap((response) => {
+    //     // Сохранение токена и информации о пользователе
+    //     if (response && response.token) {
+    //       localStorage.setItem('token', response.token);
+    //       this.currentUserSubject.next(response.user); // Предполагается, что ответ содержит информацию о пользователе
+    //     }
+    //   }),
+    //   catchError(this.handleError) // Обработка ошибок
+    // );
+
+    return of(true);
   }
 
-  private clearToken() {
-    localStorage.removeItem(this.tokenKey);
+  logout(): void {
+    // Удаление токена и сброс состояния пользователя
+    localStorage.removeItem('token');
+    this.currentUserSubject.next(null);
   }
 
-  setRedirectUrl(redirectUrl: string | null) {
-    if (redirectUrl) {
-      localStorage.setItem(this.redirectUrlKey, redirectUrl);
+  register(email: string, password: string) {}
+
+  isAuthenticated(): boolean {
+    // Проверка, есть ли токен
+    return !!localStorage.getItem('token');
+  }
+
+  getCurrentUser(): any {
+    return this.currentUserSubject.value;
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    // Обработка ошибок HTTP
+    let errorMessage = 'An unknown error occurred!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Error: ${error.error.message}`;
     } else {
-      localStorage.removeItem(this.redirectUrlKey);
+      // Server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-  }
-
-  getRedirectUrl() {
-    return localStorage.getItem(this.redirectUrlKey);
-  }
-
-  getToken() {
-    const tokenStr = localStorage.getItem(this.tokenKey);
-
-    return tokenStr ? (JSON.parse(tokenStr) as Token) : null;
-  }
-
-  isAuthorized() {
-    return this.getToken() !== null;
-  }
-
-  authenticate() {
-    window.location.href = this.authenticationUrl;
-  }
-
-  authorize(code: string) {
-    const body = {
-      client_id: environment.accessKey,
-      client_secret: environment.secretKey,
-      redirect_uri: environment.authUrl,
-      code,
-      grant_type: 'authorization_code',
-    };
-
-    this.http.post<Token>(this.authorizationUrl, body).subscribe((token) => {
-      this.saveToken(token);
-      this.authSubject.next(token);
-    });
-  }
-
-  unauthorize() {
-    this.clearToken();
-    this.authSubject.next(null);
-    window.location.href = environment.originUrl;
+    return throwError(errorMessage);
   }
 }

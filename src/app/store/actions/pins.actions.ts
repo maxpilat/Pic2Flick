@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Pin } from '../models/pin.model';
+import { Pin } from '../../services/pin.service';
 
 export enum PinsActionsTypes {
   loadPins = '[PINS] Load Pins',

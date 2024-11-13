@@ -1,5 +1,4 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Pin } from '../../store/models/pin.model';
 import { CommonModule } from '@angular/common';
 import { PinComponent } from '../pin/pin.component';
 import { PinState } from '../../store/reducers/pin.reducer';
@@ -9,6 +8,7 @@ import { debounceTime, filter, interval, Observable, Subject, switchMap, take, t
 import { selectPins, selectPinsPending } from '../../store/selectors/pin.selectors';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { LoaderComponent } from '../loader/loader.component';
+import { Pin } from '../../services/pin.service';
 
 @Component({
   selector: 'pin-gallery',

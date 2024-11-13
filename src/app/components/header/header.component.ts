@@ -18,9 +18,7 @@ export class HeaderComponent {
   @ViewChild('header') private header!: ElementRef<HTMLDivElement>;
   @ViewChild('dropdownMenu') private dropdownMenu!: ElementRef<HTMLDivElement>;
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.authService.token$.subscribe((token) => (this.token = token));
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   signIn() {
     this.router.navigate(['auth'], { queryParams: { redirectUrl: this.router.url } });

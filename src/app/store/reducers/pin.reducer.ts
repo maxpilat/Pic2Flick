@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { Pin } from '../models/pin.model';
 import { loadPins, loadPinsError, loadPinsSuccess } from '../actions/pins.actions';
+import { Pin } from '../../services/pin.service';
 
 export const pinNode = 'pins';
 
