@@ -15,19 +15,6 @@ export class PinService {
     return new Observable<Pin[]>((observer) => {
       setTimeout(() => {
         const mockPins: Pin[] = [
-<<<<<<< HEAD
-          { url: 'https://example.com/photo1.jpg' },
-          { url: 'https://example.com/photo2.jpg' },
-          { url: 'https://example.com/photo3.jpg' },
-          { url: 'https://example.com/photo4.jpg' },
-          { url: 'https://example.com/photo5.jpg' },
-          { url: 'https://example.com/photo6.jpg' },
-          { url: 'https://example.com/photo7.jpg' },
-          { url: 'https://example.com/photo8.jpg' },
-          { url: 'https://example.com/photo9.jpg' },
-          { url: 'https://example.com/photo10.jpg' },
-        ];
-=======
           { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWaW4xxOX6qc38S-GLc2S5suBY92GVfmFN1Q&s' },
           { url: 'https://img1.akspic.ru/previews/5/3/0/9/7/179035/179035-voda-gora-gidroresursy-rastenie-oblako-550x310.jpg' },
           { url: 'https://cdn.ingos.ru/images/blog/Bugatti-La-Voiture-Noire.jpg' },
@@ -46,7 +33,6 @@ export class PinService {
           { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNLtn8TGPR6-wQjBTksVuiplmqFrKDqEdWCg&s' },
         ];
         
->>>>>>> 028680a (feat: oprocentovka)
         observer.next(mockPins);
         observer.complete();
       }, 1000);

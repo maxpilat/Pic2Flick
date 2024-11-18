@@ -39,12 +39,8 @@ export class PinComponent implements AfterViewInit {
   }
 
   handleClick() {
-<<<<<<< HEAD
-    this.router.navigate(['/movie-collection']);
-=======
     this.router.navigate(['/movie-collection'], {
       queryParams: { pinUrl: this.pin.url }
     });
->>>>>>> 028680a (feat: oprocentovka)
   }
 }
