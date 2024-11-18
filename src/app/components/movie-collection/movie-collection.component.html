@@ -9,8 +9,13 @@
         <p class="release-date">Release Date: {{ movie.release_date | date : "longDate" }}</p>
         <p class="description">{{ movie.description }}</p>
         <p class="rating">Rating: {{ movie.rating }}/10</p>
+<<<<<<< HEAD
         <p class="countries">Countries: {{ movie.contries.join(", ") }}</p>
         <p class="duration">Duration: {{ movie.duration_sec | number }} seconds</p>
+=======
+        <p class="countries">Countries: {{ movie.countries.join(", ") }}</p>
+        <p class="duration">Duration: {{ movie.duration_minute | number }} seconds</p>
+>>>>>>> 028680a (feat: oprocentovka)
         <p class="age-limit">Age Limit: {{ movie.age_limit }}+</p>
         <p class="directors">Directors: {{ movie.directors.join(", ") }}</p>
         <p class="actors">Actors: {{ movie.actors.join(", ") }}</p>
