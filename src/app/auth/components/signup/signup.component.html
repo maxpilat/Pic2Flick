@@ -1,0 +1,54 @@
+<div class="auth-container">
+  <loader *ngIf="isLoading"></loader>
+
+  <div class="auth-forms" *ngIf="!isLoading">
+    <form [formGroup]="registrationForm" (ngSubmit)="onRegister()" class="registration-form">
+      <h2>Регистрация</h2>
+
+      <div class="form-group">
+        <label for="username">Имя пользователя</label>
+        <input id="username" type="text" formControlName="username" required />
+        <div
+          *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched"
+          class="error"
+        >
+          Пожалуйста, введите корректное имя пользователя.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" required />
+        <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="error">
+          Пожалуйста, введите корректный email.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input id="password" type="password" formControlName="password" required />
+        <div
+          *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched"
+          class="error"
+        >
+          Пароль должен содержать не менее 6 символов.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Подтверждение пароля</label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword" required />
+        <div
+          *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched"
+          class="error"
+        >
+          Пароли не совпадают.
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+      <button type="submit" [disabled]="isLoading || registrationForm.invalid">Зарегистрироваться</button>
+    </form>
+  </div>
+</div>

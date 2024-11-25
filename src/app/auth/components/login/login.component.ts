@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoaderComponent } from '../../../components/loader/loader.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -6,16 +6,16 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-auth',
+  selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, LoaderComponent],
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss'],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class AuthComponent implements OnInit {
+export class LoginComponent {
   loginForm: FormGroup;
   registerForm: FormGroup;
-  loading = false;
+  isLoading = false;
   errorMessage: string | null = null;
   registerErrorMessage: string | null = null;
 
@@ -40,19 +40,15 @@ export class AuthComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-    // Logic to check authentication state can be added here if needed
-  }
-
-  onSubmit(): void {
+  onLogin(): void {
     if (this.loginForm.invalid) {
       return;
     }
 
-    this.loading = true; // Set loading state
-    this.errorMessage = null; // Reset error message
+    this.isLoading = true;
+    this.errorMessage = null;
 
-    const { email, password } = this.loginForm.value; // Get form values
+    const { email, password } = this.loginForm.value;
 
     this.authService.login(email, password).subscribe({
       next: (response) => {
@@ -60,39 +56,12 @@ export class AuthComponent implements OnInit {
       },
       error: (error) => {
         this.errorMessage = 'Login error. Please check your credentials.';
-        this.loading = false;
+        this.isLoading = false;
       },
       complete: () => {
-        this.loading = false;
+        this.isLoading = false;
       },
     });
-  }
-
-  onRegister(): void {
-    if (this.registerForm.invalid) {
-      return; // Exit if form is invalid
-    }
-
-    this.loading = true; // Set loading state
-    this.registerErrorMessage = null; // Reset error message
-
-    const { email, password } = this.registerForm.value; // Get form values
-
-    // Call registration method from AuthService
-    // this.authService.register(email, password).subscribe({
-    //   next: (response) => {
-    //     // Successful registration, redirect or show success message
-    //     this.router.navigate(['/login']); // Redirect to login page after registration
-    //   },
-    //   error: (error) => {
-    //     // Handle error
-    //     this.registerErrorMessage = 'Registration error. Please try again.';
-    //     this.loading = false; // Reset loading state
-    //   },
-    //   complete: () => {
-    //     this.loading = false; // Reset loading state after completion
-    //   },
-    // });
   }
 
   passwordMatchValidator(formGroup: FormGroup) {
@@ -100,7 +69,7 @@ export class AuthComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.authService.logout(); // Logout
-    this.router.navigate(['/login']); // Redirect to login page
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
