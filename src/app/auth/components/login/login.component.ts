@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { LoaderComponent } from '../../../components/loader/loader.component';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { AuthService, BgImage } from '../../services/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoaderComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -18,13 +17,9 @@ export class LoginComponent {
   isLoading = false;
   errorMessage: string | null = null;
   registerErrorMessage: string | null = null;
+  bg: BgImage;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -38,6 +33,8 @@ export class LoginComponent {
       },
       { validators: this.passwordMatchValidator }
     );
+
+    this.bg = this.authService.getBg();
   }
 
   onLogin(): void {

@@ -1,8 +1,18 @@
-<div class="auth-container">
-  <loader *ngIf="isLoading"></loader>
+<div
+  class="wrapper"
+  [style]="{
+    background: 'linear-gradient(160deg, ' + bg.colors[0] + ' 45%, ' + bg.colors[1] + ' 30%)'
+  }"
+>
+  <div class="content">
+    <div class="cover">
+      <div class="header-wrapper">
+        <h1>Welcome to <span [style]="{ color: bg.colors[1] }">Pic2Flick</span></h1>
+      </div>
+      <img [src]="bg.url" alt="background image" />
+    </div>
 
-  <div class="auth-forms" *ngIf="!isLoading">
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <h2>Login</h2>
 
       <div class="form-group">
@@ -24,6 +34,10 @@
       <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
       <button type="submit" [disabled]="isLoading || loginForm.invalid">Log In</button>
+
+      <div class="register-link">
+        <p>Don't have an account? <a routerLink="/register">Register here</a>.</p>
+      </div>
     </form>
   </div>
 </div>

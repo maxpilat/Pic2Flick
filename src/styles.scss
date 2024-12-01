@@ -14,12 +14,12 @@
   --red: #f11b1b;
   --dark-red: #d11a1a;
   --black-transparent: rgba(0, 0, 0, 0.9);
-
   --border-radius: 6px;
 }
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 button {

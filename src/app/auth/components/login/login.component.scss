@@ -1,57 +1,106 @@
-.auth-container {
+.wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: var(--white);
+  padding: 20px;
 
-  .login-form {
-    background: var(--white);
-    padding: 30px;
-    border: 1px solid var(--grey);
+  .content {
+    display: flex;
     border-radius: var(--border-radius);
-    width: 320px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 
-    h2 {
+    .cover {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 330px;
+      padding: 40px;
+      overflow: hidden;
       text-align: center;
-      margin-bottom: 20px;
-      font-weight: 600;
-      color: var(--black);
-    }
 
-    .form-group {
-      margin-bottom: 15px;
+      .header-wrapper {
+        position: relative;
+        z-index: 2;
+        backdrop-filter: blur(12px);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
 
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-size: 14px;
-        color: var(--black);
-      }
-
-      input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid var(--grey);
-        border-radius: var(--border-radius);
-        font-size: 14px;
-
-        &:focus {
-          border-color: var(--black);
-          outline: none;
+        h1 {
+          color: var(--white);
+          z-index: 1;
+          font-size: 28px;
+        }
+        span {
+          color: var(--red);
         }
       }
 
-      .error {
-        color: var(--red);
-        font-size: 12px;
-        margin-top: 5px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
       }
     }
 
-    button {
-      width: 100%;
-      margin-top: 10px;
+    form {
+      width: 350px;
+      display: block;
+      padding: 40px;
+      background: var(--white);
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 600;
+        color: var(--black);
+        font-size: x-large;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+
+        label {
+          display: block;
+          margin-bottom: 5px;
+          font-size: 14px;
+          color: var(--black);
+        }
+
+        input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid var(--grey);
+          border-radius: var(--border-radius);
+          font-size: 14px;
+
+          &:focus {
+            border-color: var(--black);
+            outline: none;
+          }
+        }
+
+        .error {
+          color: var(--red);
+          font-size: 12px;
+          margin-top: 5px;
+        }
+      }
+
+      button {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .register-link {
+        margin-top: 25px;
+      }
     }
   }
 }

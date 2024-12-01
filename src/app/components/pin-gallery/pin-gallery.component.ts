@@ -9,11 +9,12 @@ import { selectPins, selectPinsPending } from '../../store/selectors/pin.selecto
 import { NgxMasonryModule } from 'ngx-masonry';
 import { LoaderComponent } from '../loader/loader.component';
 import { Pin } from '../../services/pin.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'pin-gallery',
   standalone: true,
-  imports: [CommonModule, PinComponent, NgxMasonryModule, LoaderComponent],
+  imports: [CommonModule, PinComponent, NgxMasonryModule, LoaderComponent, HeaderComponent],
   templateUrl: './pin-gallery.component.html',
   styleUrl: './pin-gallery.component.scss',
 })

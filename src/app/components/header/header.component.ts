@@ -1,7 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../auth/services/auth.service';
-import { Token } from '../../auth/models/auth.model';
+import { AuthService, Token } from '../../auth/services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -47,7 +46,7 @@ export class HeaderComponent {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
     const opacityLimits = {
       min: 0.5,
-      max: 0.9,
+      max: 0.93,
     };
     const maxScroll = 150;
     const opacity = Math.max(

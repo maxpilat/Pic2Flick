@@ -7,6 +7,7 @@ import { SignupComponent } from './auth/components/signup/signup.component';
 
 export const routes: Routes = [
   { path: 'gallery', component: PinGalleryComponent },
+  { path: 'collections', component: PinGalleryComponent },
   { path: 'movie-collection', component: MovieCollectionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
