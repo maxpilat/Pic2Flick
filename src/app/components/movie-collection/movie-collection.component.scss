@@ -1,72 +1,41 @@
-.movie-collection {
-  padding: 1rem;
-  margin-top: 95px;
+.wrapper {
+  height: 100vh; /* Высота на всю страницу */
+  background-size: cover;
+  background-position: center;
+}
 
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
+.content {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+  margin: 0 auto;
+  width: 100%;
+  backdrop-filter: blur(60px); /* Настройте уровень размытия */
+  padding: 20px;
+}
 
-  .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 1rem;
-  }
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
-  .movie-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s;
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 15px; /* Закругление углов */
+  border: 1px solid rgba(156, 156, 156, 0.616);
+}
 
-    &:hover {
-      transform: translateY(-5px);
-    }
+.movies-list {
+  flex: 2; /* Увеличиваем ширину для списка фильмов */
+  overflow-y: auto; /* Вертикальная прокрутка */
+  padding: 20px; /* Отступы */
+}
 
-    .movie-poster {
-      width: 100%;
-      height: 270px;
-      object-fit: cover;
-    }
-
-    .movie-info {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-
-      h3 {
-        font-size: 1.25rem;
-        margin: 0;
-        color: #333;
-      }
-
-      .genre,
-      .release-date,
-      .description,
-      .rating,
-      .countries,
-      .duration,
-      .age-limit,
-      .directors,
-      .actors {
-        font-size: 0.9rem;
-        color: #666;
-      }
-
-      .trailer-link {
-        margin-top: 0.5rem;
-        font-size: 0.9rem;
-        color: #007bff;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
+.movie-card {
+  margin-bottom: 15px; /* Отступ между карточками фильмов */
 }

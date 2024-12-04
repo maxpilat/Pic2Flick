@@ -1,0 +1,17 @@
+<div class="movie-card">
+    <img [src]="movie.poster_url" alt="{{ movie.en_title }}" class="movie-poster" />
+    <div class="movie-info">
+      <h3>{{ movie.en_title }}</h3>
+      <p class="genre">Genres: {{ movie.genres.join(", ") }}</p>
+      <p class="release-date">Release Date: {{ movie.release_date | date : "longDate" }}</p>
+      <p class="description">{{ movie.description }}</p>
+      <p class="rating">Rating: {{ movie.rating }}/10</p>
+      <p class="countries">Countries: {{ movie.countries.join(", ") }}</p>
+      <p class="duration">Duration: {{ movie.duration_minute | number }} seconds</p>
+      <p class="age-limit">Age Limit: {{ movie.age_limit }}+</p>
+      <p class="directors">Directors: {{ movie.directors.join(", ") }}</p>
+      <p class="actors">Actors: {{ movie.actors.join(", ") }}</p>
+      <a [href]="movie.trailer_url" target="_blank" class="trailer-link">Watch Trailer</a>
+    </div>
+  </div>
+  
