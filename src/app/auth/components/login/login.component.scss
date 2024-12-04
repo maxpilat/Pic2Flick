@@ -7,16 +7,17 @@
 
   .content {
     display: flex;
-    border-radius: var(--border-radius);
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background: var(--white);
 
     .cover {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 330px;
+      width: 370px;
       padding: 40px;
       overflow: hidden;
       text-align: center;
@@ -25,9 +26,10 @@
         position: relative;
         z-index: 2;
         backdrop-filter: blur(12px);
-        padding: 20px;
-        border-radius: 10px;
+        padding: 30px 20px;
+        border: 1px solid rgba(150, 150, 150, 0.129);
         text-align: center;
+        border-radius: 12px;
 
         h1 {
           color: var(--white);
@@ -50,56 +52,88 @@
     }
 
     form {
-      width: 350px;
+      width: 370px;
       display: block;
-      padding: 40px;
-      background: var(--white);
+      padding: 60px;
 
       h2 {
         text-align: center;
-        margin-bottom: 20px;
         font-weight: 600;
         color: var(--black);
         font-size: x-large;
+        margin-bottom: 25px;
       }
 
-      .form-group {
-        margin-bottom: 15px;
+      .form-field {
+        margin-top: 15px;
 
         label {
           display: block;
           margin-bottom: 5px;
           font-size: 14px;
-          color: var(--black);
-        }
+          color: rgba(0, 0, 0, 0.5);
+          transition: 0.3s;
 
-        input {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid var(--grey);
-          border-radius: var(--border-radius);
-          font-size: 14px;
-
-          &:focus {
-            border-color: var(--black);
-            outline: none;
+          &.invalid {
+            color: var(--red);
+            transform: translateY(-5px);
           }
         }
 
-        .error {
-          color: var(--red);
-          font-size: 12px;
-          margin-top: 5px;
+        .input-wrapper {
+          position: relative;
+
+          input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--grey);
+            border-radius: var(--border-radius);
+            font-size: 14px;
+
+            &:focus {
+              border-color: var(--black);
+              outline: none;
+            }
+
+            &.invalid {
+              border-color: var(--red);
+            }
+          }
+
+          .error {
+            color: var(--red);
+            font-size: 12px;
+            position: absolute;
+            left: 10px;
+            top: -12px;
+            transform: translateY(5px);
+            pointer-events: none;
+            background-color: var(--white);
+            padding: 0 5px;
+          }
+        }
+
+        &:focus-within {
+          label:not(.invalid) {
+            color: var(--black);
+          }
         }
       }
 
       button {
         width: 100%;
-        margin-top: 10px;
+        margin-top: 30px;
       }
 
-      .register-link {
+      .signup-link {
+        font-size: 14px;
+        text-align: center;
         margin-top: 25px;
+
+        a {
+          color: var(--red);
+          font-weight: bold;
+        }
       }
     }
   }

@@ -1,24 +1,23 @@
 import { Component } from '@angular/core';
-import { LoaderComponent } from '../../../components/loader/loader.component';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService, BgImage } from '../../services/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoaderComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
-  registrationForm: FormGroup;
+  form: FormGroup;
   isLoading = false;
-  errorMessage: string | null = null;
+  bg: BgImage;
 
   constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
-    this.registrationForm = this.formBuilder.group(
+    this.form = this.formBuilder.group(
       {
         username: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
@@ -27,29 +26,25 @@ export class SignupComponent {
       },
       { validators: this.passwordMatchValidator }
     );
+
+    this.bg = this.authService.getBg();
   }
 
-  onRegister(): void {
-    if (this.registrationForm.invalid) {
-      return;
+  onSignup(): void {
+    if (this.form.invalid) {
+      return this.form.markAllAsTouched();
     }
 
     this.isLoading = true;
-    this.errorMessage = null;
 
-    const { username, email, password } = this.registrationForm.value;
+    const { username, email, password } = this.form.value;
 
     this.authService.signup(username, email, password).subscribe({
       next: (response) => {
-        this.router.navigate(['/login']);
-
-        console.log(response);
+        this.router.navigate(['/gallery']);
       },
       error: (error) => {
-        this.errorMessage = 'Registration error. Please try again.';
         this.isLoading = false;
-
-        console.log(error);
       },
       complete: () => {
         this.isLoading = false;

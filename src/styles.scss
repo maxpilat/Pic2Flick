@@ -14,7 +14,7 @@
   --red: #f11b1b;
   --dark-red: #d11a1a;
   --black-transparent: rgba(0, 0, 0, 0.9);
-  --border-radius: 6px;
+  --border-radius: 8px;
 }
 
 a {
@@ -32,18 +32,33 @@ button {
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: transform 0.3s, background-color 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  &:active {
-    transform: scale(0.85);
-  }
-
-  &:disabled {
-    background-color: var(--grey);
-    cursor: not-allowed;
-    transform: none;
+  &:active:not(:disabled) {
+    transform: scale(0.95);
   }
 
   &:hover:not(:disabled) {
     background-color: var(--dark-red);
+  }
+
+  .loader {
+    border: 2px solid var(--white);
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    width: 18.5px;
+    height: 18.5px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }

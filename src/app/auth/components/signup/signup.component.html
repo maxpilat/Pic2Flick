@@ -1,54 +1,84 @@
-<div class="auth-container">
-  <loader *ngIf="isLoading"></loader>
+<div
+  class="wrapper"
+  [style]="{
+    background: 'linear-gradient(160deg, ' + bg.colors[0] + ' 45%, ' + bg.colors[1] + ' 30%)'
+  }"
+>
+  <div class="content">
+    <form [formGroup]="form" (ngSubmit)="onSignup()">
+      <h2>Create Account</h2>
 
-  <div class="auth-forms" *ngIf="!isLoading">
-    <form [formGroup]="registrationForm" (ngSubmit)="onRegister()" class="registration-form">
-      <h2>Регистрация</h2>
-
-      <div class="form-group">
-        <label for="username">Имя пользователя</label>
-        <input id="username" type="text" formControlName="username" required />
-        <div
-          *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched"
-          class="error"
+      <div class="form-field">
+        <label for="username" [ngClass]="{ invalid: form.get('username')?.invalid && form.get('username')?.touched }"
+          >Username</label
         >
-          Пожалуйста, введите корректное имя пользователя.
+        <div class="input-wrapper">
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            required
+            [ngClass]="{ invalid: form.get('username')?.invalid && form.get('username')?.touched }"
+          />
+          <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="error">
+            Please enter a valid username.
+          </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email" required />
-        <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="error">
-          Пожалуйста, введите корректный email.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="password">Пароль</label>
-        <input id="password" type="password" formControlName="password" required />
-        <div
-          *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched"
-          class="error"
+      <div class="form-field">
+        <label for="email" [ngClass]="{ invalid: form.get('email')?.invalid && form.get('email')?.touched }"
+          >Email</label
         >
-          Пароль должен содержать не менее 6 символов.
+        <div class="input-wrapper">
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            required
+            [ngClass]="{ invalid: form.get('email')?.invalid && form.get('email')?.touched }"
+          />
+          <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error">
+            Please enter a valid email address.
+          </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="confirmPassword">Подтверждение пароля</label>
-        <input id="confirmPassword" type="password" formControlName="confirmPassword" required />
-        <div
-          *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched"
-          class="error"
+      <div class="form-field">
+        <label for="password" [ngClass]="{ invalid: form.get('password')?.invalid && form.get('password')?.touched }"
+          >Password</label
         >
-          Пароли не совпадают.
+        <div class="input-wrapper">
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            required
+            [ngClass]="{ invalid: form.get('password')?.invalid && form.get('password')?.touched }"
+          />
+          <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">
+            Must be at least 6 characters long.
+          </div>
         </div>
       </div>
 
-      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+      <button type="submit">
+        <ng-container *ngIf="isLoading; else btnText">
+          <span class="loader"></span>
+        </ng-container>
+        <ng-template #btnText> Sign up </ng-template>
+      </button>
 
-      <button type="submit" [disabled]="isLoading || registrationForm.invalid">Зарегистрироваться</button>
+      <div class="login-link">
+        <p>Already have an account? <a routerLink="/login">Log in</a></p>
+      </div>
     </form>
+
+    <div class="cover">
+      <div class="header-wrapper">
+        <h1>Welcome to <span [style]="{ color: bg.colors[1] }">Pic2Flick</span></h1>
+      </div>
+      <img [src]="bg.url" alt="background image" />
+    </div>
   </div>
 </div>

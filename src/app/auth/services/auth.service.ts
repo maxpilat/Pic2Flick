@@ -27,7 +27,7 @@ export class AuthService {
   private images: BgImage[] = [
     {
       url: 'https://i.pinimg.com/736x/ef/ec/65/efec65d2d8912a6e8a929a348891ba59.jpg',
-      colors: ['#333333', '#FFA500'],
+      colors: ['#1a1a1a', '#ffa500'],
     },
     {
       url: 'https://i.pinimg.com/736x/5d/53/9c/5d539cad7e30aa0106ac85ac945037bc.jpg',
