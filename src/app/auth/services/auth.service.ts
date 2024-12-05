@@ -12,6 +12,10 @@ export type Token = {
   username: string;
 };
 
+export type User = {
+  name: string;
+}
+
 export type BgImage = {
   url: string;
   colors: string[];
@@ -53,8 +57,14 @@ export class AuthService {
     return of(true).pipe(delay(1000));
   }
 
-  logout() {
+  signout() {
     localStorage.removeItem('token');
     this.currentUserSubject.next(null);
+  }
+
+  getUser() {
+    return {
+      name: "username"
+    }
   }
 }

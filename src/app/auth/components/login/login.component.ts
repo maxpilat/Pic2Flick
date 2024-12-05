@@ -52,7 +52,7 @@ export class LoginComponent {
   }
 
   onLogout(): void {
-    this.authService.logout();
+    this.authService.signout();
     this.router.navigate(['/login']);
   }
 }

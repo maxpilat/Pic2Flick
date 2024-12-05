@@ -8,7 +8,7 @@ import { debounceTime, filter, interval, Observable, Subject, switchMap, take, t
 import { selectPins, selectPinsPending } from '../../store/selectors/pin.selectors';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { LoaderComponent } from '../loader/loader.component';
-import { Pin } from '../../services/pin.service';
+import { Pin, PinService } from '../../services/pin.service';
 import { HeaderComponent } from '../header/header.component';
 
 @Component({
@@ -30,7 +30,7 @@ export class PinGalleryComponent implements OnInit {
   isLoader = true;
   private allPinsLoaded = false; // Новый флаг для отслеживания состояния загрузки всех пинов
 
-  constructor(private store: Store<PinState>) {
+  constructor(private store: Store<PinState>, public pinService: PinService) {
     this.pins$ = this.store.select(selectPins);
     this.store.select(selectPinsPending).subscribe((isLoading) => {
       this.isLoading = isLoading;

@@ -4,104 +4,19 @@
   left: 0;
   width: 100%;
   z-index: 1;
-  padding: 2px;
+  background-color: var(--white);
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
 
   .header {
     display: flex;
     justify-content: space-between;
-    background-color: var(--black-transparent);
-    backdrop-filter: blur(20px);
     padding: 20px 40px;
-    border-radius: 16px;
     align-items: center;
     font-size: 22px;
-
-    .navigation {
-      display: flex;
-      align-items: center;
-      gap: 100px;
-    }
 
     .logo {
       color: var(--red);
       font-weight: bold;
-    }
-
-    nav {
-      ul {
-        list-style: none;
-        display: flex;
-
-        li {
-          display: inline;
-          margin-right: 15px;
-
-          a {
-            color: var(--white);
-            text-decoration: none;
-            border-radius: var(--border-radius);
-            transition: background-color 0.1s;
-
-            button {
-              background-color: transparent;
-            }
-
-            &.active {
-              button {
-                color: var(--red);
-                font-weight: bold;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .profile {
-      position: relative;
-
-      .dropdown {
-        .dropdown-content {
-          margin-top: 10px;
-          display: none;
-          position: absolute;
-          right: 0;
-          background-color: var(--white);
-          min-width: 150px;
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-          z-index: 1;
-          border-radius: var(--border-radius);
-
-          div {
-            color: var(--black);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: transform 0.3s;
-            cursor: pointer;
-
-            &:hover {
-              background-color: var(--light-grey);
-            }
-
-            &:first-child {
-              border-radius: 6px 6px 0 0;
-            }
-
-            &:last-child {
-              border-radius: 0 0 6px 6px;
-            }
-
-            &:only-child {
-              border-radius: 6px;
-            }
-          }
-        }
-
-        &.open .dropdown-content {
-          display: block;
-        }
-      }
     }
   }
 }

@@ -2,24 +2,7 @@
   <div #header class="header">
     <div class="navigation">
       <div class="logo">Pic2Flick</div>
-      <nav>
-        <ul>
-          <li>
-            <a routerLink="/gallery" routerLinkActive="active" ariaCurrentWhenActive="page" role="tab">
-              <button>Gallery</button>
-            </a>
-          </li>
-        </ul>
-      </nav>
     </div>
-    <div class="profile">
-      <button (click)="signIn()" *ngIf="!token">Sign in</button>
-      <div #dropdownMenu class="dropdown" [class.open]="isDropdownOpen" *ngIf="token">
-        <button (click)="toggleDropdown()">{{ token.username }}</button>
-        <div class="dropdown-content">
-          <div (click)="signOut()">Sign out</div>
-        </div>
-      </div>
-    </div>
+    <button (click)="signOut()">{{ user.name }}</button>
   </div>
 </div>

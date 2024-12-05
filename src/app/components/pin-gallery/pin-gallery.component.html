@@ -1,7 +1,13 @@
 <header></header>
 <div class="wrapper">
   <ngx-masonry class="pin-gallery" [options]="{ fitWidth: true }">
-    <pin ngxMasonryItem *ngFor="let pin of pins$ | async" [pin]="pin" (imageLoaded)="onImageLoaded()"></pin>
+    <pin 
+      ngxMasonryItem 
+      *ngFor="let pin of pins$ | async; let i = index" 
+      [pin]="pin"
+      (imageLoaded)="onImageLoaded()" 
+      [ngStyle]="{'z-index': pin.id === pinService.getActivePin()?.id ? '1000' : 'auto'}">
+    </pin>
   </ngx-masonry>
   <div #loadMore class="loader-container">
     <loader [isLoader]="isLoader"></loader>

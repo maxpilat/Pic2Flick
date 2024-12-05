@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 
 export type Movie = {
   id: string;
@@ -104,6 +104,6 @@ export class MovieService {
       },
     ];
 
-    return of(movies); // Возвращаем замокированные данные как Observable
+    return of(movies).pipe(delay(2000));
   }
 }

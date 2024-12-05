@@ -1,4 +1,14 @@
-<div #pinElem class="pin" (click)="handleClick()">
-  <div class="overlay"></div>
+<div #pinElem class="pin" (click)="handleClick()" [class.fullscreen]="isFullscreen">
+  <div class="overlay" [class.active]="isOverlayActive">
+    <div *ngIf="isFullscreen && !movies.length" class="message" [class.active]="isOverlayLoader">
+      Looking for movies for you...
+    </div>
+    <div *ngIf="movies.length" class="movies">
+      <app-movie-card [movie]="currentMovie"></app-movie-card>
+      <button class="nav-btn prev" (click)="prevMovie()">❮</button>
+      <button class="nav-btn next" (click)="nextMovie()">❯</button>
+    </div>    
+  </div>
+  <button class="close-btn" *ngIf="isFullscreen" (click)="closeFullscreen($event)">✖</button>
   <img src="{{ pin.urls.raw }}" alt="" (load)="onImageLoad()" role="img" />
 </div>
