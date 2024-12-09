@@ -5,6 +5,7 @@
   display: flex;
   overflow: hidden;
   color: #ffffff;
+  line-height: 1.2;
 
   .movie-poster {
     width: 270px;
@@ -15,6 +16,10 @@
   .movie-info {
     padding: 40px;
 
+    p {
+      margin: 5px 0;
+    }
+
     h3 {
       margin: 0;
       font-size: 1.6rem;
@@ -22,21 +27,13 @@
       font-weight: bold;
     }
 
-    .genre,
-    .release-date,
-    .rating {
-      font-size: 1rem;
-      margin: 5px 0;
-    }
-
     .description {
-      font-size: 0.9rem;
+      font-size: 1rem;
       margin: 10px 0;
-      line-height: 1.5;
     }
 
     button {
-      margin-top: 20px;
+      margin-top: 30px;
       width: 100%;
     }
   }
