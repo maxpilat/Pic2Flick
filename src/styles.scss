@@ -68,3 +68,28 @@ button {
   overflow: hidden;
   height: 100%;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7c7c7c6c;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7e7e7e;
+}
+
+.scrollable-element {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+

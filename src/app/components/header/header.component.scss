@@ -18,5 +18,38 @@
       color: var(--red);
       font-weight: bold;
     }
+
+    .user-menu {
+      position: relative; /* Для позиционирования дропдауна */
+
+      .dropdown {
+        position: absolute;
+        top: 100%; /* Позиционирование под кнопкой */
+        right: 0; /* Выравнивание по правому краю */
+        background-color: var(--white);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: none; /* Скрываем дропдаун по умолчанию */
+        z-index: 10;
+        
+        &.active {
+          display: block; /* Показываем дропдаун при активации */
+        }
+
+        button {
+          width: 100%;
+          padding: 10px;
+          text-align: left;
+          background: none; /* Убираем фон */
+          border: none; /* Убираем границу */
+          cursor: pointer;
+          color: black;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.05); /* Эффект при наведении */
+          }
+        }
+      }
+    }
   }
 }

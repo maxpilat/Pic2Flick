@@ -8,18 +8,23 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  user: User;
+  user: User | null;
+  isDropdownActive = false; // Состояние дропдауна
 
   constructor(private authService: AuthService, private router: Router) {
     this.user = this.authService.getUser();
   }
 
-  signOut() {
-    this.authService.signout();
-    this.router.navigate(['auth']);
+  toggleDropdown() {
+    this.isDropdownActive = !this.isDropdownActive; // Переключаем состояние дропдауна
   }
 
+  signOut() {
+    this.authService.signout();
+    this.router.navigate(['/login']);
+    this.isDropdownActive = false; // Закрываем дропдаун при выходе
+  }
 }

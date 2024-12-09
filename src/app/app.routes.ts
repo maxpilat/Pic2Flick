@@ -6,7 +6,7 @@ import { MovieCollectionComponent } from './components/movie-collection/movie-co
 import { SignupComponent } from './auth/components/signup/signup.component';
 
 export const routes: Routes = [
-  { path: 'gallery', component: PinGalleryComponent },
+  { path: 'gallery', component: PinGalleryComponent, canActivate: [authGuard] },
   { path: 'movie-collection', component: MovieCollectionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },

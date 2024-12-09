@@ -3,6 +3,11 @@
     <div class="navigation">
       <div class="logo">Pic2Flick</div>
     </div>
-    <button (click)="signOut()">{{ user.name }}</button>
+    <div class="user-menu">
+      <button (click)="toggleDropdown()">{{ user?.name }}</button>
+      <div class="dropdown" [class.active]="isDropdownActive">
+        <button (click)="signOut()">Sign Out</button>
+      </div>
+    </div>
   </div>
 </div>
