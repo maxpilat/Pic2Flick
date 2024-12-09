@@ -4,11 +4,11 @@
       Looking for movies for you...
     </div>
     <div *ngIf="movies.length" class="movies">
-      <app-movie-card [movie]="currentMovie"></app-movie-card>
-      <button class="nav-btn prev" (click)="prevMovie()">❮</button>
-      <button class="nav-btn next" (click)="nextMovie()">❯</button>
-    </div>    
+      <div class="movies-list">
+        <app-movie-card *ngFor="let movie of movies" [movie]="movie"></app-movie-card>
+      </div>
+    </div>
   </div>
-  <button class="close-btn" *ngIf="isFullscreen" (click)="closeFullscreen($event)">✖</button>
+  <button class="close-btn" *ngIf="isFullscreen" (click)="closeFullscreen($event)">&times;</button>
   <img src="{{ pin.urls.raw }}" alt="" (load)="onImageLoad()" role="img" />
 </div>

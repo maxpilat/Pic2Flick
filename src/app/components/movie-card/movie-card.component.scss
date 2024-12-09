@@ -1,67 +1,44 @@
 .movie-card {
-    background-color: rgba(255, 255, 255, 0.8); /* Более яркий полупрозрачный фон */
-    border-radius: 15px; /* Увеличенные закругленные углы */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Увеличенная тень для глубины */
-    display: flex;
-    margin-bottom: 20px; /* Увеличенный отступ между карточками */
-    overflow: hidden; /* Скрыть переполнение */
-    transition: transform 0.3s, box-shadow 0.3s; /* Плавный переход для эффектов */
+  backdrop-filter: blur(100px);
+  //   border: 1px solid rgba(122, 122, 122, 0.7);
+  border-radius: 15px;
+  display: flex;
+  overflow: hidden;
 
-    &:hover {
-        transform: translateY(-8px); /* Подъем карточки при наведении */
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25); /* Увеличение тени при наведении */
+  .movie-poster {
+    width: 270px;
+    object-fit: cover;
+    height: auto;
+  }
+
+  .movie-info {
+    padding: 40px;
+
+    h3 {
+      margin: 0;
+      font-size: 1.6rem;
+      color: #222;
+      font-weight: bold;
     }
 
-    .movie-poster {
-        width: 320px; /* Ширина постера */
-        height: 450px; /* Автоматическая высота */
-        object-fit: cover; /* Обтягивание изображения */
-        border-radius: 15px 0 0 15px; /* Закругление только левой стороны */
+    .genre,
+    .release-date,
+    .rating {
+      font-size: 1rem;
+      color: #555;
+      margin: 5px 0;
     }
 
-    .movie-info {
-        padding: 20px; /* Увеличенные отступы внутри карточки */
-        display: flex;
-        flex-direction: column; /* Вертикальное расположение текста */
-        justify-content: center; /* Выравнивание по центру */
-        background: rgba(255, 255, 255, 0.9); /* Светлый фон для информации */
-        border-radius: 0 15px 15px 0; /* Закругление только правой стороны */
-        
-        h3 {
-            margin: 0; /* Убрать отступы */
-            font-size: 1.6rem; /* Увеличенный размер заголовка */
-            color: #222; /* Более глубокий цвет текста */
-            font-weight: bold; /* Жирный шрифт */
-        }
-
-        .genre,
-        .release-date,
-        .rating {
-            font-size: 1rem; /* Увеличенный размер шрифта для дополнительных данных */
-            color: #555; /* Более тёмный цвет текста */
-            margin: 5px 0; /* Отступы между строками */
-        }
-
-        .description {
-            font-size: 0.9rem; /* Увеличенный размер шрифта для описания */
-            color: #444; /* Цвет текста */
-            margin: 10px 0; /* Отступы */
-            line-height: 1.5; /* Межстрочный интервал */
-        }
-
-        .trailer-link {
-            margin-top: 15px; /* Увеличенный отступ сверху */
-            padding: 10px 15px; /* Увеличенные отступы внутри ссылки */
-            background-color: #007bff; /* Цвет фона */
-            color: white; /* Цвет текста */
-            text-decoration: none; /* Убрать подчеркивание */
-            border-radius: 5px; /* Закругленные углы */
-            transition: background-color 0.3s, transform 0.3s; /* Плавный переход для фона */
-
-            &:hover {
-                background-color: #0056b3; /* Темнее при наведении */
-                transform: scale(1.05); /* Увеличение при наведении */
-            }
-        }
+    .description {
+      font-size: 0.9rem;
+      color: #444;
+      margin: 10px 0;
+      line-height: 1.5;
     }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
 }
