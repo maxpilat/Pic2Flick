@@ -19,17 +19,17 @@ export class MovieCollectionComponent implements OnInit {
   constructor(private movieService: MovieService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.pinUrl = params['pinUrl'];
-      this.movieService.getMovies(this.pinUrl).subscribe({
-        next: (movies) => {
-          this.movies = movies;
-          console.log(movies);
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
-    });
+    // this.route.queryParams.subscribe((params) => {
+    //   this.pinUrl = params['pinUrl'];
+    //   this.movieService.searchMovies(this.pinUrl).subscribe({
+    //     next: (movies) => {
+    //       this.movies = movies;
+    //       console.log(movies);
+    //     },
+    //     error: (error) => {
+    //       console.error(error);
+    //     },
+    //   });
+    // });
   }
 }

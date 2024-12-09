@@ -1,18 +1,18 @@
 <div class="movie-card">
-  <img [src]="movie.poster_url" alt="{{ movie.en_title }}" class="movie-poster" />
+  <img [src]="movie.posterUrl" alt="{{ movie.enTitle }}" class="movie-poster" />
   <div class="movie-info">
-    <h3>{{ movie.en_title }}</h3>
+    <h3>{{ movie.enTitle }}</h3>
     <p class="genre"><strong>Genres:</strong> {{ movie.genres.join(", ") }}</p>
-    <p class="release-date"><strong>Release Date:</strong> {{ movie.release_date | date : "longDate" }}</p>
+    <p class="release-date"><strong>Release Date:</strong> {{ movie.releaseDate | date : "longDate" }}</p>
     <p class="description">{{ movie.description }}</p>
     <p class="rating"><strong>Rating:</strong> {{ movie.rating }}/10</p>
     <p class="countries"><strong>Countries:</strong> {{ movie.countries.join(", ") }}</p>
-    <p class="duration"><strong>Duration:</strong> {{ movie.duration_minute | number }} seconds</p>
-    <p class="age-limit"><strong>Age Limit:</strong> {{ movie.age_limit }}+</p>
+    <p class="duration"><strong>Duration:</strong> {{ movie.durationMinute | number }} seconds</p>
+    <p class="age-limit"><strong>Age Limit:</strong> {{ movie.ageLimit }}+</p>
     <p class="directors"><strong>Directors:</strong> {{ movie.directors.join(", ") }}</p>
     <p class="actors"><strong>Actors:</strong> {{ movie.actors.join(", ") }}</p>
     <button>
-      <a [href]="movie.trailer_url" target="_blank" class="trailer-link">Watch Trailer</a>
+      <a [href]="movie.trailerUrl" target="_blank" class="trailer-link">Watch Trailer</a>
     </button>
   </div>
 </div>

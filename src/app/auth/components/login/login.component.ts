@@ -32,9 +32,9 @@ export class LoginComponent {
 
     this.isLoading = true;
 
-    const { email, password } = this.form.value;
+    const { username, password } = this.form.value;
 
-    this.authService.login(email, password).subscribe({
+    this.authService.login(username, password).subscribe({
       next: (response) => {
         this.router.navigate(['/gallery']);
       },

@@ -10,7 +10,12 @@ export type Pin = {
 };
 
 export const FILMS_MOCK: Pin[] = [
-  { id: 1, urls: { raw: 'https://i.pinimg.com/736x/01/bd/fd/01bdfd39e523431922ba76b205062d12.jpg' } },
+  {
+    id: 1,
+    urls: {
+      raw: 'https://img.freepik.com/free-photo/digital-art-cosmic-star-illustration_23-2151572565.jpg?semt=ais_hybrid',
+    },
+  },
   { id: 2, urls: { raw: 'https://i.pinimg.com/736x/46/fd/4f/46fd4f4798c1e7da969be851371494a1.jpg' } },
   { id: 3, urls: { raw: 'https://i.pinimg.com/736x/52/8a/42/528a424b2d0913f0354b6d6347afb343.jpg' } },
   { id: 4, urls: { raw: 'https://i.pinimg.com/736x/b5/79/86/b57986311812642a3a7ef6bc16509f71.jpg' } },
@@ -36,9 +41,9 @@ export class PinService {
   }
 
   private assignUniqueIds(pins: Pin[]): Pin[] {
-    return pins.map(pin => ({
+    return pins.map((pin) => ({
       ...pin,
-      id: this.currentId++
+      id: this.currentId++,
     }));
   }
 

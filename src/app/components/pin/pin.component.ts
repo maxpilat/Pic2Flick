@@ -27,7 +27,6 @@ export class PinComponent implements AfterViewInit {
   private scrollbarWidth!: number;
   currentIndex: number = 0;
 
-
   constructor(private router: Router, private pinService: PinService, private movieService: MovieService) {}
 
   ngAfterViewInit() {
@@ -62,10 +61,10 @@ export class PinComponent implements AfterViewInit {
       setTimeout(() => {
         this.isOverlayLoader = true;
 
-        this.movieService.getMovies(this.pin.urls.raw).subscribe({
+        this.movieService.searchMovies(this.pin.urls.raw).subscribe({
           next: (movies) => {
             this.movies = movies;
-            this.isMoviesVisible = true; // Устанавливаем флаг видимости
+            this.isMoviesVisible = true;
             console.log(movies);
           },
           error: (error) => {
@@ -73,9 +72,8 @@ export class PinComponent implements AfterViewInit {
           },
           complete: () => {
             this.isOverlayLoader = false;
-          }
+          },
         });
-
       }, 2000);
       this.pinService.setActivePin(this.pin);
       document.body.style.paddingRight = `${this.scrollbarWidth}px`;
@@ -91,7 +89,7 @@ export class PinComponent implements AfterViewInit {
     this.isOverlayLoader = false;
 
     setTimeout(() => {
-      this.pinService.setActivePin(null);  
+      this.pinService.setActivePin(null);
     }, 1000);
 
     document.body.style.paddingRight = '';
@@ -105,12 +103,12 @@ export class PinComponent implements AfterViewInit {
     outer.style.width = '100px';
     outer.style.height = '100px';
     document.body.appendChild(outer);
-  
+
     const inner = document.createElement('div');
     inner.style.width = '100%';
     inner.style.height = '100%';
     outer.appendChild(inner);
-  
+
     const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
     outer.parentNode?.removeChild(outer);
     return scrollbarWidth;
