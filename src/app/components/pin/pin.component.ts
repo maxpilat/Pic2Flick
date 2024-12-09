@@ -20,6 +20,7 @@ export class PinComponent implements AfterViewInit {
   isFullscreen: boolean = false;
   isOverlayActive: boolean = false;
   isOverlayLoader: boolean = false;
+  isMoviesVisible: boolean = false;
 
   movies: Movie[] = [];
 
@@ -64,6 +65,7 @@ export class PinComponent implements AfterViewInit {
         this.movieService.getMovies(this.pin.urls.raw).subscribe({
           next: (movies) => {
             this.movies = movies;
+            this.isMoviesVisible = true; // Устанавливаем флаг видимости
             console.log(movies);
           },
           error: (error) => {

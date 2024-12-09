@@ -1,9 +1,10 @@
 .movie-card {
-  backdrop-filter: blur(100px);
-  //   border: 1px solid rgba(122, 122, 122, 0.7);
+  background-color: rgba(0, 0, 0, 0.212);
+    border: 1px solid rgba(122, 122, 122, 0.7);
   border-radius: 15px;
   display: flex;
   overflow: hidden;
+  color: #ffffff;
 
   .movie-poster {
     width: 270px;
@@ -17,7 +18,7 @@
     h3 {
       margin: 0;
       font-size: 1.6rem;
-      color: #222;
+      color: #ffffff;
       font-weight: bold;
     }
 
@@ -25,13 +26,11 @@
     .release-date,
     .rating {
       font-size: 1rem;
-      color: #555;
       margin: 5px 0;
     }
 
     .description {
       font-size: 0.9rem;
-      color: #444;
       margin: 10px 0;
       line-height: 1.5;
     }

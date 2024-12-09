@@ -3,7 +3,7 @@
     <div *ngIf="isFullscreen && !movies.length" class="message" [class.active]="isOverlayLoader">
       Looking for movies for you...
     </div>
-    <div *ngIf="movies.length" class="movies">
+    <div class="movies" [class.active]="movies.length > 0">
       <div class="movies-list">
         <app-movie-card *ngFor="let movie of movies" [movie]="movie"></app-movie-card>
       </div>
