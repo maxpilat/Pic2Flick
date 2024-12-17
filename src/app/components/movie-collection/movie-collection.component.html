@@ -3,10 +3,12 @@
     <div class="image-container">
       <img [src]="pinUrl" alt="Image" />
     </div>
-    <div class="movies-list">
+    <div class="movies-section">
       <h2>Список фильмов</h2>
-      <div *ngFor="let movie of movies" class="movie-card">
-        <app-movie-card [movie]="movie"></app-movie-card>
+      <div class="movies-list">
+        <ng-container *ngFor="let movie of movies">
+          <app-movie-card [movie]="movie" class="movie-card"></app-movie-card>
+        </ng-container>
       </div>
     </div>
   </div>

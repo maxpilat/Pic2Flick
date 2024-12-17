@@ -11,11 +11,11 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  user: User | null;
+  username: string;
   isDropdownActive = false; // Состояние дропдауна
 
   constructor(private authService: AuthService, private router: Router) {
-    this.user = this.authService.getUser();
+    this.username = this.authService.getAuthData()?.name || '';
   }
 
   toggleDropdown() {

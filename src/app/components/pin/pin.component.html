@@ -1,7 +1,10 @@
 <div #pinElem class="pin" (click)="handleClick()" [class.fullscreen]="isFullscreen">
   <div class="overlay" [class.active]="isOverlayActive">
-    <div *ngIf="isFullscreen && !movies.length" class="message" [class.active]="isOverlayLoader">
+    <div *ngIf="isFullscreen && !movies.length && !isNoMovies" class="message" [class.active]="isOverlayLoader">
       Looking for movies for you...
+    </div>
+    <div *ngIf="isFullscreen && !movies.length && isNoMovies" class="message" [class.active]="isNoMovies">
+      Sorry, we couldn't find anything 😔
     </div>
     <div class="movies" [class.active]="movies.length > 0">
       <div class="movies-list">

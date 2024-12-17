@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, of, delay } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 export type AuthData = {
   access_token: string;
@@ -8,6 +8,7 @@ export type AuthData = {
   refresh_expires_in: number;
   refresh_token: string;
   token_type: string;
+  name?: string;
 };
 
 export type User = {
@@ -27,8 +28,8 @@ export type BgImage = {
 export class AuthService {
   authUrl = 'http://localhost:3334/api/auth/users';
 
-  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject(null);
-  currentUser$: Observable<any> = this.currentUserSubject.asObservable();
+  private authDataSubject = new BehaviorSubject<AuthData | null>(null);
+  authData$: Observable<AuthData | null> = this.authDataSubject.asObservable();
 
   private images: BgImage[] = [
     {
@@ -51,37 +52,42 @@ export class AuthService {
     return this.images[Math.floor(Math.random() * this.images.length)];
   }
 
-  login(name: string, password: string): Observable<AuthData> {
+  login(name: string, password: string) {
     const res = this.http.post<AuthData>(
       `${this.authUrl}`,
       { name, password },
       {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvN05RSHkycTZyMUYyUVNpaHJOZ2Y2YUlXZWhFQjVyWEUwNF8wR3VURkk0In0.eyJleHAiOjE3MzM3NTQzNjQsImlhdCI6MTczMzc1MzQ2NCwianRpIjoiMThiNWYxNTEtNWU1YS00MWVhLTljOTItNTgxMjc2YTQyNjQ5IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL3AyZiIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIyOGViMjIzMy1lYzczLTQxMTMtYmIyOS05ZjE2NGQ3MTUxOWMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhdXRoLXNlcnYiLCJzaWQiOiI0NTlkYTkyNC02ZjYxLTQ1NmEtOWEzMS1iZGIxZjJjMTlkZjQiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtcDJmIiwiUk9MRV9VU0VSIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoibWF4cGlsYXQgbWF4cGlsYXQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXhwaWxhdCIsImdpdmVuX25hbWUiOiJtYXhwaWxhdCIsImZhbWlseV9uYW1lIjoibWF4cGlsYXQiLCJlbWFpbCI6InBpbGF0bWRAb3V0bG9vay5jb20ifQ.Ndf9tZnPgg9Nct9fWEeBXNK-F1vmtR_WEHYSXgJkEjYnc_dhxZAuBKsUVXDzzyxz1PZ6SNvL_t0qZWxr5kqExyBjb4uwfi8D_UqYoY8hfH2NAm-37NSc0DAreYqhg9XIiy1ZME--cfQUOmanfN_zBn7qy6M5bj-Mm_Krspc7NtCq-6mnVm_yf7X0DcoWqcE7ANrVQ2HTiZ3esvhq2YH2_r8jvaaesmtqJuR6L1WbNyXCdRM-phm4oYp_wg0zhS43HCv8-z7vvceYqLnOpJOd8pEi5JCMMeP4yX6nApuXPKV7sjiEh6a6YbEKO1wLNiVm8W-pabxcEfGfH6poOcPmpw`,
+          Authorization: this.authDataSubject.getValue()?.access_token || '',
         },
       }
     );
     res.subscribe({
       next: (data) => {
         localStorage.setItem('token', data.access_token);
-        this.currentUserSubject.next({ ...data, name });
+        this.authDataSubject.next({ ...data, name });
       },
     });
     return res;
   }
 
-  signup(email: string, username: string, password: string): Observable<any> {
-    return of(true).pipe(delay(1000));
+  signup(email: string, name: string, password: string) {
+    const res = this.http.post<AuthData>(`${this.authUrl}/register`, { email, name, password });
+    res.subscribe({
+      next: (data) => {
+        localStorage.setItem('token', data.access_token);
+        this.authDataSubject.next({ ...data, name });
+      },
+    });
+    return res;
   }
 
   signout() {
     localStorage.removeItem('token');
-    this.currentUserSubject.next(null);
+    this.authDataSubject.next(null);
   }
 
-  getUser() {
-    return {
-      name: 'username',
-    };
+  getAuthData() {
+    return this.authDataSubject.getValue();
   }
 }

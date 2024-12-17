@@ -16,10 +16,40 @@ export const FILMS_MOCK: Pin[] = [
       raw: 'https://img.freepik.com/free-photo/digital-art-cosmic-star-illustration_23-2151572565.jpg?semt=ais_hybrid',
     },
   },
-  { id: 2, urls: { raw: 'https://i.pinimg.com/736x/46/fd/4f/46fd4f4798c1e7da969be851371494a1.jpg' } },
-  { id: 3, urls: { raw: 'https://i.pinimg.com/736x/52/8a/42/528a424b2d0913f0354b6d6347afb343.jpg' } },
-  { id: 4, urls: { raw: 'https://i.pinimg.com/736x/b5/79/86/b57986311812642a3a7ef6bc16509f71.jpg' } },
-  { id: 5, urls: { raw: 'https://i.pinimg.com/736x/7f/ea/66/7fea668afab70a255e1ae43c56aa5310.jpg' } },
+  {
+    id: 2,
+    urls: {
+      raw: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHQT3_E599bDANzTDfsQxvOsFbI0rpcgtO3g&s',
+    },
+  },
+  { id: 3, urls: { raw: 'https://i.pinimg.com/736x/46/fd/4f/46fd4f4798c1e7da969be851371494a1.jpg' } },
+  { id: 4, urls: { raw: 'https://i.pinimg.com/736x/52/8a/42/528a424b2d0913f0354b6d6347afb343.jpg' } },
+  { id: 5, urls: { raw: 'https://i.pinimg.com/736x/b5/79/86/b57986311812642a3a7ef6bc16509f71.jpg' } },
+  { id: 6, urls: { raw: 'https://i.pinimg.com/736x/7f/ea/66/7fea668afab70a255e1ae43c56aa5310.jpg' } },
+  {
+    id: 7,
+    urls: {
+      raw: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeGR9XzyvRCVDcnT2IL7xvrS63vM5OGZ_KEQ&s',
+    },
+  },
+  {
+    id: 8,
+    urls: {
+      raw: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZmTHCBfRcIzZwr70LHvjmlGoByD2Z86ATew&s',
+    },
+  },
+  {
+    id: 9,
+    urls: {
+      raw: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0RTevtEKGuGjjApnuyLDsIiVZXDo4kgGNlQ&s',
+    },
+  },
+  {
+    id: 10,
+    urls: {
+      raw: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6LfKk4v8kzQq45CzHPndsTtJb2tlBVRPXUQ&s',
+    },
+  },
 ];
 
 @Injectable({
@@ -33,10 +63,6 @@ export class PinService {
   constructor(private http: HttpClient) {}
 
   getPins(page: number, perPage = 20): Observable<Pin[]> {
-    // Здесь можно добавить логику для получения пинов из API
-    // const url = `${this.getPinsUrl}&page=${page}&per_page=${perPage}`;
-    // return this.http.get<Pin[]>(url);
-
     return of(this.assignUniqueIds(FILMS_MOCK));
   }
 

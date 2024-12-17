@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, delay, from, Observable, of } from 'rxjs';
+import { AuthService } from '../auth/services/auth.service';
 
 // const movies: Movie[] = [
 //   {
@@ -98,18 +99,15 @@ export type Movie = {
   providedIn: 'root',
 })
 export class MovieService {
-  private apiUrl = 'http://localhost:3331/api/images/describe';
+  private apiUrl = 'http://localhost:3331/api/images/search-movies';
+  private moviesUrl = 'http://localhost:3332/api/movies';
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   searchMovies(pinUrl: string): Observable<Movie[]> {
-    // const headers = new Headers({
-    //   Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvN05RSHkycTZyMUYyUVNpaHJOZ2Y2YUlXZWhFQjVyWEUwNF8wR3VURkk0In0.eyJleHAiOjE3MzM3NTQzNjQsImlhdCI6MTczMzc1MzQ2NCwianRpIjoiMThiNWYxNTEtNWU1YS00MWVhLTljOTItNTgxMjc2YTQyNjQ5IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL3AyZiIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIyOGViMjIzMy1lYzczLTQxMTMtYmIyOS05ZjE2NGQ3MTUxOWMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhdXRoLXNlcnYiLCJzaWQiOiI0NTlkYTkyNC02ZjYxLTQ1NmEtOWEzMS1iZGIxZjJjMTlkZjQiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtcDJmIiwiUk9MRV9VU0VSIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoibWF4cGlsYXQgbWF4cGlsYXQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXhwaWxhdCIsImdpdmVuX25hbWUiOiJtYXhwaWxhdCIsImZhbWlseV9uYW1lIjoibWF4cGlsYXQiLCJlbWFpbCI6InBpbGF0bWRAb3V0bG9vay5jb20ifQ.Ndf9tZnPgg9Nct9fWEeBXNK-F1vmtR_WEHYSXgJkEjYnc_dhxZAuBKsUVXDzzyxz1PZ6SNvL_t0qZWxr5kqExyBjb4uwfi8D_UqYoY8hfH2NAm-37NSc0DAreYqhg9XIiy1ZME--cfQUOmanfN_zBn7qy6M5bj-Mm_Krspc7NtCq-6mnVm_yf7X0DcoWqcE7ANrVQ2HTiZ3esvhq2YH2_r8jvaaesmtqJuR6L1WbNyXCdRM-phm4oYp_wg0zhS43HCv8-z7vvceYqLnOpJOd8pEi5JCMMeP4yX6nApuXPKV7sjiEh6a6YbEKO1wLNiVm8W-pabxcEfGfH6poOcPmpw`,
-    // });
-
     const body = {
       imageUrl: pinUrl,
-      isKeyWordsMode: false,
+      isKeyWordsMode: true,
     };
 
     return from(
@@ -117,7 +115,7 @@ export class MovieService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvN05RSHkycTZyMUYyUVNpaHJOZ2Y2YUlXZWhFQjVyWEUwNF8wR3VURkk0In0.eyJleHAiOjE3MzM3NTQzNjQsImlhdCI6MTczMzc1MzQ2NCwianRpIjoiMThiNWYxNTEtNWU1YS00MWVhLTljOTItNTgxMjc2YTQyNjQ5IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL3AyZiIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIyOGViMjIzMy1lYzczLTQxMTMtYmIyOS05ZjE2NGQ3MTUxOWMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhdXRoLXNlcnYiLCJzaWQiOiI0NTlkYTkyNC02ZjYxLTQ1NmEtOWEzMS1iZGIxZjJjMTlkZjQiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtcDJmIiwiUk9MRV9VU0VSIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoibWF4cGlsYXQgbWF4cGlsYXQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXhwaWxhdCIsImdpdmVuX25hbWUiOiJtYXhwaWxhdCIsImZhbWlseV9uYW1lIjoibWF4cGlsYXQiLCJlbWFpbCI6InBpbGF0bWRAb3V0bG9vay5jb20ifQ.Ndf9tZnPgg9Nct9fWEeBXNK-F1vmtR_WEHYSXgJkEjYnc_dhxZAuBKsUVXDzzyxz1PZ6SNvL_t0qZWxr5kqExyBjb4uwfi8D_UqYoY8hfH2NAm-37NSc0DAreYqhg9XIiy1ZME--cfQUOmanfN_zBn7qy6M5bj-Mm_Krspc7NtCq-6mnVm_yf7X0DcoWqcE7ANrVQ2HTiZ3esvhq2YH2_r8jvaaesmtqJuR6L1WbNyXCdRM-phm4oYp_wg0zhS43HCv8-z7vvceYqLnOpJOd8pEi5JCMMeP4yX6nApuXPKV7sjiEh6a6YbEKO1wLNiVm8W-pabxcEfGfH6poOcPmpw`,
+          Authorization: this.authService.getAuthData()?.access_token || '',
         },
         body: JSON.stringify(body),
       }).then((response) => {
@@ -129,7 +127,29 @@ export class MovieService {
     ).pipe(
       catchError((error) => {
         console.error('Error during searchMovies:', error);
-        return of([]); // Возвращаем пустой массив в случае ошибки
+        return of([]);
+      })
+    );
+  }
+
+  getMovies(): Observable<Movie[]> {
+    return from(
+      fetch(this.moviesUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.authService.getAuthData()?.access_token || '',
+        },
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+    ).pipe(
+      catchError((error) => {
+        console.error('Error during searchMovies:', error);
+        return of([]);
       })
     );
   }

@@ -46,7 +46,7 @@ services:
       - ./keycloak_data:/opt/keycloak/data
 
   auth-server:
-    image: chalexl/p2f-auth-server:1.0
+    image: chalexl/p2f-auth-server:2.0
     restart: always
     depends_on:
       eureka-server:
@@ -59,7 +59,7 @@ services:
       KEYCLOAK_REALM: p2f
       KEYCLOAK_CLIENT_ID_ADMIN: admin-cli
       KEYCLOAK_CLIENT_ID_USER: auth-serv
-      KEYCLOAK_CLIENT_SECRET_USER: D9SS9hQ7AqGmIFrHdS6hrziNFhGrzsrQ
+      KEYCLOAK_CLIENT_SECRET_USER: DgZAnx55OJdDjuyqxjEvHsQCTJrhBnQY
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KEYCLOAK_GRANT_TYPE: password

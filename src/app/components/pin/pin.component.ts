@@ -21,6 +21,7 @@ export class PinComponent implements AfterViewInit {
   isOverlayActive: boolean = false;
   isOverlayLoader: boolean = false;
   isMoviesVisible: boolean = false;
+  isNoMovies: boolean = false;
 
   movies: Movie[] = [];
 
@@ -63,6 +64,9 @@ export class PinComponent implements AfterViewInit {
 
         this.movieService.searchMovies(this.pin.urls.raw).subscribe({
           next: (movies) => {
+            if (!movies.length) {
+              this.isNoMovies = true;
+            }
             this.movies = movies;
             this.isMoviesVisible = true;
             console.log(movies);
