@@ -53,15 +53,7 @@ export class AuthService {
   }
 
   login(name: string, password: string) {
-    const res = this.http.post<AuthData>(
-      `${this.authUrl}`,
-      { name, password },
-      {
-        headers: {
-          Authorization: this.authDataSubject.getValue()?.access_token || '',
-        },
-      }
-    );
+    const res = this.http.post<AuthData>(`${this.authUrl}`, { name, password });
     res.subscribe({
       next: (data) => {
         localStorage.setItem('token', data.access_token);

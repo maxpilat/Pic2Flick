@@ -17,29 +17,26 @@ export class SignupComponent {
   bg: BgImage;
 
   constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group(
-      {
-        username: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', [Validators.required]],
-      },
-      { validators: this.passwordMatchValidator }
-    );
+    this.form = this.formBuilder.group({
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
+    });
 
     this.bg = this.authService.getBg();
   }
 
-  onSignup(): void {
-    if (this.form.invalid) {
-      return this.form.markAllAsTouched();
-    }
+  onSignup() {
+    // if (this.form.invalid) {
+    //   return this.form.markAllAsTouched();
+    // }
 
     this.isLoading = true;
 
-    const { username, email, password } = this.form.value;
+    const { email, username, password } = this.form.value;
 
-    this.authService.signup(username, email, password).subscribe({
+    this.authService.signup(email, username, password).subscribe({
       next: (response) => {
         this.router.navigate(['/gallery']);
       },
@@ -50,9 +47,5 @@ export class SignupComponent {
         this.isLoading = false;
       },
     });
-  }
-
-  passwordMatchValidator(formGroup: FormGroup) {
-    return formGroup.get('password')?.value === formGroup.get('confirmPassword')?.value ? null : { mismatch: true };
   }
 }
